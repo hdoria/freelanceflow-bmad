@@ -1,73 +1,57 @@
-# Welcome to your Lovable project
+# FreelanceFlow
 
-## Project info
+Kanban de tarefas e tempo para freelancers: tarefas por coluna, cronômetro por tarefa, cliente, valor por hora e receita estimada. React, Vite, TypeScript, shadcn/ui e Tailwind. Não tem backend: os dados ficam no `localStorage` do navegador.
 
-**URL**: https://hour-zen-board.lovable.app/
+O repositório serve de base para praticar spec-driven development com o [BMad Method](https://docs.bmad-method.org/), já instalado e configurado.
 
-## How can I edit this code?
+## Rodar o app
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Pré-requisitos: Node 20.12 ou mais novo e Git.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+git clone https://github.com/hdoria/freelanceflow-bmad.git
+cd freelanceflow-bmad
+npm ci
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+O app abre em `http://localhost:8080`. Outros comandos: `npm run build`, `npm test` e `npm run lint`. O lint já sai com 3 erros herdados da base; o `AGENTS.md` explica.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## O BMad neste repositório
 
-**Use GitHub Codespaces**
+| Item | Estado |
+| --- | --- |
+| Versão | BMad Method 6.12.4, a estável mais recente em 23/11/2026 |
+| Módulos | Core e BMad Method (BMM) |
+| Clientes de IA | Claude Code (`.claude/skills`) e Codex (`.agents/skills`) |
+| Idioma | Português do Brasil, na conversa e nos documentos (`_bmad/custom/config.toml`) |
+| Contexto do projeto | Bloco gerado pelo `bmad-project-context` no `AGENTS.md` |
+| Saída dos workflows | `_bmad-output/` |
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Pré-requisito extra do BMad: [uv](https://docs.astral.sh/uv/), que as skills usam para rodar scripts.
 
-## What technologies are used for this project?
+Para começar, abra o cliente de IA na raiz do repositório e chame a ajuda:
 
-This project is built with:
+```text
+claude
+> /bmad-help
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+No Codex, o prefixo é `$`, como em `$bmad-help`.
 
-## How can I deploy this project?
+Seu nome nos agentes fica em `_bmad/custom/config.user.toml`, que não vai pro Git:
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```toml
+[core]
+user_name = "Seu nome"
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Prática
 
-Yes, you can!
+- [Encontro 1, fase de análise](docs/aula/encontro-1-analise.md): do problema ao brief de uma feature nova, com brainstorm, teste da ideia e product brief.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Hábitos ao usar o BMad aqui
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. Abra uma sessão nova do cliente de IA para cada workflow.
+2. Faça commit no fim de cada workflow, junto com o que ele gravou em `_bmad-output/`.
+3. Ajuste do time vai em `_bmad/custom/`. A pasta `_bmad/` é da instalação e é sobrescrita na próxima atualização.
