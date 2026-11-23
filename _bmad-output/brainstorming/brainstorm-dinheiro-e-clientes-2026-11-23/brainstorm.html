@@ -1,0 +1,1383 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Caderneta do a receber · Brainstorm FreelanceFlow · 23/11/2026</title>
+<style>
+:root{
+  --paper:#f4eedd; --paper-2:#faf6ea; --card:#fffdf5; --card-2:#f7f1e2;
+  --ink:#1c2520; --ink-soft:#434d47; --ink-faint:#58605a;
+  --rule:#cfdce1; --rule-strong:#b7c9d0; --margin:#d46a5f;
+  --red:#a3261c; --red-bg:#f8e1dc; --green:#1b6343; --green-bg:#dcefe3;
+  --blue:#214c8a; --blue-bg:#dfe8f6; --amber:#7d5200; --amber-bg:#f8e9c4;
+  --hl:#f9e39a; --shadow:0 1px 0 rgba(60,40,10,.06),0 8px 24px -12px rgba(60,40,10,.28);
+  --lcd-bg:#10291e; --lcd-ink:#a6f0c6; --lcd-dim:#5f9c7c;
+  --band-bg:#173225; --band-card:#1f4232; --band-ink:#f4eedb; --band-soft:#c9d6cb; --band-accent:#f3c96a; --band-red:#ffa496; --band-rule:#2f5a45;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,"Times New Roman",serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --hand:"Bradley Hand","Segoe Print","Chalkboard SE","Marker Felt",var(--serif);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#101513; --paper-2:#141b18; --card:#19221e; --card-2:#1e2924;
+    --ink:#ece5d2; --ink-soft:#bcc2b6; --ink-faint:#949b90;
+    --rule:#24302b; --rule-strong:#33433c; --margin:#8a3a33;
+    --red:#ff8f80; --red-bg:#3a1d1a; --green:#7fd8a9; --green-bg:#16352a; --blue:#a2c0ff; --blue-bg:#1a2740; --amber:#f2c25f; --amber-bg:#3a2e10;
+    --hl:#4f4314; --shadow:0 1px 0 rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.8);
+    --lcd-bg:#0a1a13; --lcd-ink:#a6f0c6; --lcd-dim:#5f9c7c;
+    --band-bg:#0f2219; --band-card:#173427; --band-rule:#24483a;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#101513; --paper-2:#141b18; --card:#19221e; --card-2:#1e2924;
+  --ink:#ece5d2; --ink-soft:#bcc2b6; --ink-faint:#949b90;
+  --rule:#24302b; --rule-strong:#33433c; --margin:#8a3a33;
+  --red:#ff8f80; --red-bg:#3a1d1a; --green:#7fd8a9; --green-bg:#16352a; --blue:#a2c0ff; --blue-bg:#1a2740; --amber:#f2c25f; --amber-bg:#3a2e10;
+  --hl:#4f4314; --shadow:0 1px 0 rgba(0,0,0,.4),0 10px 28px -14px rgba(0,0,0,.8);
+  --lcd-bg:#0a1a13; --lcd-ink:#a6f0c6; --lcd-dim:#5f9c7c;
+  --band-bg:#0f2219; --band-card:#173427; --band-rule:#24483a;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:var(--serif); font-size:1.0625rem; line-height:1.6;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+a{color:var(--blue)}
+code,.mono{font-family:var(--mono); font-size:.86em}
+code{background:var(--card-2); border:1px solid var(--rule-strong); border-radius:4px; padding:.05em .35em; white-space:nowrap}
+:focus-visible{outline:3px solid var(--blue); outline-offset:3px; border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:1120px; margin:0 auto; padding:0 clamp(1rem,4vw,2.5rem)}
+h1,h2,h3,h4{font-family:var(--serif); line-height:1.15; margin:0; font-weight:700; letter-spacing:-.01em}
+p{margin:0 0 .8em}
+
+/* barra superior */
+.topbar{position:sticky; top:0; z-index:20; background:color-mix(in srgb,var(--paper) 88%,transparent); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid var(--rule-strong)}
+.topbar .wrap{display:flex; align-items:center; gap:1rem; min-height:52px}
+.topbar .brand{font-family:var(--mono); font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-soft); flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.topbar .brand b{color:var(--ink)}
+.btn{font:600 .82rem/1 var(--sans); color:var(--ink); background:var(--card); border:1.5px solid var(--ink); border-radius:999px; padding:.5rem .9rem; cursor:pointer; text-decoration:none; white-space:nowrap}
+.btn:hover{background:var(--ink); color:var(--paper)}
+.btn.ghost{border-color:var(--rule-strong)}
+
+/* capa */
+.cover{padding:clamp(2.5rem,7vw,5rem) 0 2.5rem; position:relative}
+.cover .wrap{display:grid; grid-template-columns:1.25fr .9fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:center}
+.kicker{font-family:var(--mono); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--red); margin-bottom:1rem; display:flex; gap:.6rem; flex-wrap:wrap}
+.kicker span+span::before{content:"/"; margin-right:.6rem; color:var(--ink-faint)}
+.cover h1{font-size:clamp(2.4rem,6.4vw,4.6rem); letter-spacing:-.025em}
+.cover h1 em{font-style:italic; color:var(--green)}
+.cover .lede{font-size:clamp(1.08rem,1.8vw,1.25rem); color:var(--ink-soft); margin-top:1.2rem; max-width:38rem}
+.meta-strip{display:grid; grid-template-columns:repeat(4,auto); gap:0; margin-top:2rem; border-top:2px solid var(--ink); border-bottom:1px solid var(--ink); width:max-content; max-width:100%}
+.meta-strip div{padding:.55rem 1.1rem .55rem 0; margin-right:1.1rem; border-right:1px dashed var(--rule-strong)}
+.meta-strip div:last-child{border-right:0; margin-right:0}
+.meta-strip dt{font:600 .68rem/1.2 var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint)}
+.meta-strip dd{margin:0; font:600 1.05rem/1.3 var(--mono)}
+
+/* comanda */
+.receipt{background:var(--card); box-shadow:var(--shadow); font-family:var(--mono); font-size:.86rem; line-height:1.55; padding:1.5rem 1.4rem 2rem; position:relative; transform:rotate(1.2deg); max-width:380px; justify-self:center; width:100%}
+.receipt::after{content:""; position:absolute; left:0; right:0; bottom:-10px; height:10px;
+  background:linear-gradient(-45deg,transparent 7px,var(--card) 0) 0 0/14px 10px repeat-x, linear-gradient(45deg,transparent 7px,var(--card) 0) 0 0/14px 10px repeat-x}
+.receipt .r-head{text-align:center; border-bottom:1px dashed var(--ink-faint); padding-bottom:.6rem; margin-bottom:.7rem}
+.receipt .r-head b{display:block; font-size:1.05rem; letter-spacing:.2em}
+.receipt .r-head small{color:var(--ink-soft)}
+.r-line{display:flex; gap:.4rem; align-items:baseline}
+.r-line .lbl{white-space:nowrap}
+.r-line .dots{flex:1; border-bottom:1px dotted var(--ink-faint); transform:translateY(-4px); min-width:1rem}
+.r-line .val{white-space:nowrap; font-weight:700}
+.r-line .val.na{color:var(--red)}
+.r-total{border-top:1px dashed var(--ink-faint); margin-top:.8rem; padding-top:.8rem}
+.r-total .big{font-size:1.15rem; font-weight:700; text-align:center; margin:.3rem 0; letter-spacing:.02em}
+.r-total p{color:var(--ink-soft); font-size:.8rem; text-align:center; margin:0}
+.receipt .stamp{position:absolute; right:-.8rem; top:-1rem}
+
+/* carimbo */
+.stamp{display:inline-block; font:800 .78rem/1 var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--red); border:3px double currentColor; padding:.45rem .6rem; border-radius:6px; transform:rotate(-7deg); background:color-mix(in srgb,var(--card) 70%,transparent)}
+.stamp.green{color:var(--green)} .stamp.blue{color:var(--blue)} .stamp.amber{color:var(--amber)}
+
+/* índice */
+.index{margin:1rem 0 3.5rem}
+.index h2{font-size:1rem; font-family:var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:.8rem}
+.index ol{list-style:none; margin:0; padding:0; columns:2 320px; column-gap:2.5rem}
+.index li{break-inside:avoid}
+.index a{display:flex; gap:.5rem; align-items:baseline; text-decoration:none; color:var(--ink); padding:.28rem 0; border-bottom:1px solid var(--rule)}
+.index a:hover .t{text-decoration:underline}
+.index .fl{font:600 .75rem var(--mono); color:var(--red); width:3.2rem; flex:none}
+.index .dots{flex:1; border-bottom:1px dotted var(--ink-faint); transform:translateY(-4px)}
+.index .n{font:600 .8rem var(--mono); color:var(--ink-soft); white-space:nowrap}
+.index .special .t{font-weight:700}
+
+/* folhas */
+.sheet{position:relative; padding:3.5rem 0 3rem; border-top:1px solid var(--rule-strong)}
+.sheet-head{display:grid; grid-template-columns:auto 1fr auto; gap:1rem 1.4rem; align-items:end; margin-bottom:1.8rem}
+.tab{font:700 .78rem/1 var(--mono); letter-spacing:.1em; color:var(--paper); background:var(--ink); padding:.55rem .7rem; border-radius:4px 4px 0 0; align-self:start}
+.sheet-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem)}
+.sheet-head .sub{grid-column:2; color:var(--ink-soft); font-style:italic; margin-top:.3rem}
+.sheet-head .count{font:600 .78rem/1.3 var(--mono); color:var(--ink-soft); text-align:right; border:1px solid var(--rule-strong); border-radius:4px; padding:.4rem .6rem; background:var(--card); white-space:nowrap}
+.sheet-head .count b{display:block; font-size:1.25rem; color:var(--ink)}
+.caption{font:.8rem/1.45 var(--sans); color:var(--ink-faint); margin-top:.8rem}
+
+/* fatos do código */
+.facts{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.2rem}
+.fact{background:var(--card); box-shadow:var(--shadow); border-left:4px solid var(--margin); padding:1.3rem 1.3rem 1.2rem 1.4rem; position:relative;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 1.58rem,var(--rule) 1.58rem calc(1.58rem + 1px)); background-position:0 2.9rem}
+.fact h3{font-size:1.15rem; margin:.2rem 0 .6rem; padding-right:6.5rem}
+.fact .no{font:700 .72rem var(--mono); color:var(--red); letter-spacing:.12em}
+.fact .stamp{position:absolute; top:1rem; right:1rem; font-size:.75rem}
+.fact p{color:var(--ink-soft)}
+.viz{margin-top:.9rem; background:var(--paper-2); border:1px solid var(--rule-strong); border-radius:6px; padding:.8rem .9rem; font-family:var(--mono); font-size:.78rem}
+.actions-tbl{width:100%; border-collapse:collapse}
+.actions-tbl th,.actions-tbl td{text-align:left; padding:.3rem .4rem; border-bottom:1px solid var(--rule)}
+.actions-tbl th{font-weight:600; color:var(--ink-faint); font-size:.7rem; text-transform:uppercase; letter-spacing:.08em}
+.actions-tbl td.none{color:var(--red); font-weight:700}
+.actions-tbl td.ok{color:var(--green); font-weight:700}
+.type-vs{display:grid; grid-template-columns:1fr 1fr; gap:.6rem}
+.type-vs > div{border:1px dashed var(--rule-strong); border-radius:4px; padding:.5rem .6rem}
+.type-vs .k{color:var(--ink-faint); font-size:.75rem; text-transform:uppercase; letter-spacing:.08em}
+.type-vs .v{font-weight:700}
+.type-vs .v.bad{color:var(--red)}
+.mono-chart svg{width:100%; height:auto; display:block}
+.timerbar{display:flex; height:30px; border-radius:4px; overflow:hidden; border:1px solid var(--rule-strong)}
+.timerbar .done{flex:3; background:var(--green-bg); color:var(--green); display:flex; align-items:center; padding:0 .5rem; font-weight:700}
+.timerbar .live{flex:1.3; background:repeating-linear-gradient(45deg,var(--amber-bg) 0 6px,transparent 6px 12px); color:var(--amber); display:flex; align-items:center; padding:0 .5rem; font-weight:700; border-left:2px dashed var(--amber)}
+.timerbar-legend{display:flex; justify-content:space-between; gap:.5rem; margin-top:.4rem; color:var(--ink-soft); flex-wrap:wrap}
+
+/* 01 five whys: escavação */
+.dig{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem}
+.shaft{display:flex; flex-direction:column; gap:0}
+.shaft .layer{padding:.8rem 1rem; border-left:3px solid var(--ink); position:relative}
+.shaft .layer.q{font-weight:700; font-family:var(--serif)}
+.shaft .layer.q::before{content:"por quê?"; display:block; font:600 .66rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.15rem}
+.shaft .layer:nth-child(1){background:color-mix(in srgb,var(--amber-bg) 45%,var(--card))}
+.shaft .layer:nth-child(2){background:color-mix(in srgb,var(--amber-bg) 70%,var(--card)); margin-left:.6rem}
+.shaft .layer:nth-child(3){background:var(--amber-bg); margin-left:1.2rem}
+.shaft .layer:nth-child(4){background:color-mix(in srgb,var(--amber-bg) 92%,var(--ink) 8%); margin-left:1.8rem}
+.depth{font:600 .7rem var(--mono); color:var(--ink-faint); margin-top:.4rem; letter-spacing:.08em}
+.roots{margin-top:1.6rem; border-top:3px solid var(--ink); padding-top:1.2rem; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; position:relative}
+.roots::before{content:"no fundo da escavação"; position:absolute; top:-.75rem; left:0; background:var(--paper); padding-right:.6rem; font:700 .72rem var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--ink-soft)}
+.root{background:var(--card); box-shadow:var(--shadow); padding:1rem 1.1rem; border-top:5px solid var(--green)}
+.root .letter{font:800 2.2rem/1 var(--serif); color:var(--green); float:left; margin:0 .6rem 0 0}
+.root .tag{font:700 .68rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft)}
+
+/* 02 starbursting */
+.burst{display:grid; grid-template-columns:1fr minmax(180px,240px) 1fr; gap:1rem 1.4rem; align-items:center}
+.burst .qs{display:flex; flex-direction:column; gap:.9rem}
+.burst .qs.left{text-align:right}
+.qchip{font:700 1.15rem/1.25 var(--serif); background:var(--card); box-shadow:var(--shadow); padding:.7rem 1rem; border-radius:8px; position:relative}
+.qchip small{display:block; font:600 .64rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint)}
+.star-svg{width:100%; height:auto; display:block}
+.star-svg polygon{fill:var(--amber-bg); stroke:var(--amber); stroke-width:2}
+.star-svg text{font-family:var(--mono); font-weight:700; fill:var(--ink); font-size:13px}
+.burst-more{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:1rem; margin-top:1.8rem}
+.note-card{background:var(--card); box-shadow:var(--shadow); padding:1rem 1.1rem; border-radius:4px}
+.note-card h4{font-size:1.02rem; margin-bottom:.45rem}
+.pills{display:flex; flex-wrap:wrap; gap:.35rem; margin:.5rem 0}
+.pill{font:600 .74rem/1 var(--mono); border:1.5px solid var(--ink-soft); color:var(--ink); border-radius:999px; padding:.35rem .6rem; background:var(--paper-2)}
+.track{display:flex; align-items:center; margin:.6rem 0 .3rem; font:600 .72rem var(--mono)}
+.track span{flex:none; border:1.5px solid var(--green); color:var(--green); border-radius:4px; padding:.3rem .45rem; background:var(--green-bg)}
+.track i{flex:1; height:2px; background:var(--green); min-width:.5rem}
+
+/* 03 reverse: débito e crédito */
+.ledger{width:100%; border-collapse:collapse; background:var(--card); box-shadow:var(--shadow); font-size:.98rem}
+.ledger caption{caption-side:top; text-align:left; font:600 .74rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); padding-bottom:.6rem}
+.ledger th{font:700 .72rem var(--mono); text-transform:uppercase; letter-spacing:.1em; padding:.7rem 1rem; border-bottom:2px solid var(--ink); text-align:left}
+.ledger th.deb{color:var(--red)} .ledger th.cred{color:var(--green)}
+.ledger td{padding:.8rem 1rem; vertical-align:top; border-bottom:1px solid var(--rule)}
+.ledger td.n{font:600 .74rem var(--mono); color:var(--ink-faint); width:2.5rem; border-right:2px solid var(--margin)}
+.ledger td.deb{color:var(--red); width:48%; border-right:1px solid var(--rule-strong)}
+.ledger td.cred{color:var(--ink)}
+.ledger td.cred b{color:var(--green)}
+.errata{display:block; margin-top:.35rem; font:400 .92rem var(--hand); color:var(--blue)}
+.errata del{color:var(--ink-faint)}
+
+/* 04 role playing: conversa */
+.chat{display:flex; flex-direction:column; gap:.9rem; max-width:860px; margin:0 auto}
+.bubble{max-width:min(560px,88%); padding:.85rem 1.1rem .9rem; border-radius:16px; position:relative; box-shadow:var(--shadow)}
+.bubble .who{display:block; font:700 .7rem var(--mono); letter-spacing:.1em; text-transform:uppercase; margin-bottom:.25rem}
+.bubble.them{align-self:flex-start; background:var(--card); border-bottom-left-radius:4px}
+.bubble.them .who{color:var(--blue)}
+.bubble.me{align-self:flex-end; background:var(--green-bg); border-bottom-right-radius:4px}
+.bubble.me .who{color:var(--green)}
+.chat-legend{display:flex; gap:1.2rem; justify-content:center; font:600 .72rem var(--mono); color:var(--ink-soft); margin-bottom:1rem; flex-wrap:wrap}
+.chat-legend i{display:inline-block; width:.8rem; height:.8rem; border-radius:3px; vertical-align:-1px; margin-right:.35rem}
+
+/* 05 assumption reversal: rasuras */
+.rasuras{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1rem}
+.rasura{background:var(--card); padding:1rem 1.1rem 1.1rem; box-shadow:var(--shadow); border-radius:3px;
+  background-image:repeating-linear-gradient(to bottom,transparent 0 1.6rem,var(--rule) 1.6rem calc(1.6rem + 1px))}
+.rasura .lbl{font:700 .66rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-faint)}
+.rasura .old{color:var(--ink-soft); text-decoration:line-through; text-decoration-color:var(--red); text-decoration-thickness:2px; margin:.15rem 0 .6rem}
+.rasura .new{font-family:var(--hand); color:var(--blue); font-size:1.08rem; line-height:1.45}
+.rasura .new::before{content:"\2192  "; font-family:var(--mono); color:var(--blue)}
+.flag{display:inline-block; margin-top:.5rem; font:700 .66rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--amber); border:1.5px solid var(--amber); border-radius:3px; padding:.2rem .4rem}
+
+/* 06 scamper: caixa registradora */
+.register{background:var(--card); box-shadow:var(--shadow); border-radius:14px; padding:1.2rem; border:1px solid var(--rule-strong); max-width:900px; margin:0 auto}
+.lcd{background:var(--lcd-bg); color:var(--lcd-ink); font-family:var(--mono); border-radius:8px; padding:1rem 1.2rem; min-height:7.5rem; border:3px solid #0003; box-shadow:inset 0 2px 10px #0008}
+.lcd .panel h3{font:700 .8rem var(--mono); letter-spacing:.16em; text-transform:uppercase; color:var(--lcd-dim); margin-bottom:.4rem}
+.lcd .panel p{font-size:1.02rem; line-height:1.5; margin:0}
+.lcd .panel + .panel{margin-top:1rem; padding-top:1rem; border-top:1px dashed var(--lcd-dim)}
+.js .lcd .panel + .panel{margin-top:0; padding-top:0; border-top:0}
+.keys{display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:.6rem; margin-top:1rem}
+.key{appearance:none; cursor:pointer; border:0; border-radius:10px; background:var(--card-2); color:var(--ink); box-shadow:0 5px 0 var(--rule-strong),0 6px 10px -4px rgba(0,0,0,.3); padding:.6rem .2rem .5rem; font-family:var(--mono); transition:transform .08s,box-shadow .08s}
+.key b{display:block; font:800 1.6rem/1 var(--serif)}
+.key span{display:block; font-size:.75rem; letter-spacing:.06em; text-transform:uppercase; margin-top:.3rem; color:var(--ink-soft)}
+.key:hover{background:var(--amber-bg)}
+.key[aria-selected="true"]{transform:translateY(4px); box-shadow:0 1px 0 var(--rule-strong); background:var(--amber-bg); outline:2px solid var(--amber)}
+.no-js .keys{display:none}
+
+/* 07 cross-pollination: selos */
+.stamps{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.3rem}
+.postal{background:var(--card); padding:1.1rem 1.1rem 1rem; position:relative; box-shadow:var(--shadow);
+  outline:2px dashed var(--rule-strong); outline-offset:-8px}
+.postal .from{font:700 .7rem var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--blue)}
+.postal h4{font-size:1.2rem; margin:.25rem 0 .5rem}
+.postal p{color:var(--ink-soft); font-size:.96rem; margin:0}
+.postal .postmark{position:absolute; top:.7rem; right:.8rem; width:46px; height:46px; border:2px solid var(--ink-faint); border-radius:50%; display:grid; place-items:center; font:700 .56rem/1.1 var(--mono); color:var(--ink-faint); text-align:center; transform:rotate(12deg)}
+.aging{display:flex; gap:3px; margin-top:.7rem; font:700 .72rem var(--mono)}
+.aging span{flex:1; text-align:center; padding:.35rem 0; border-radius:3px}
+.aging span:nth-child(1){background:var(--green-bg); color:var(--green)}
+.aging span:nth-child(2){background:var(--amber-bg); color:var(--amber)}
+.aging span:nth-child(3){background:var(--red-bg); color:var(--red)}
+
+/* 08 failure analysis: ocorrências */
+.incidents{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.2rem}
+.incident{background:var(--card); box-shadow:var(--shadow); padding:1.1rem 1.15rem 1rem; position:relative; border-top:6px solid var(--red)}
+.incident .hdr{display:flex; justify-content:space-between; align-items:center; font:700 .7rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--red); margin-bottom:.5rem}
+.incident .what{font-weight:700; margin-bottom:.7rem}
+.incident .then{border-top:1px dashed var(--rule-strong); padding-top:.6rem; color:var(--ink-soft)}
+.incident .then b{font:700 .68rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--green); display:block}
+.incident .then.warn b{color:var(--amber)}
+
+/* 09 constraint mapping */
+.cmap{display:grid; grid-template-columns:2fr 1fr; grid-template-rows:auto auto; gap:1.2rem}
+.zone{border-radius:6px; padding:1.1rem 1.2rem; position:relative}
+.zone h3{font-size:1.25rem; margin-bottom:.2rem}
+.zone .zsub{font:600 .7rem var(--mono); letter-spacing:.12em; text-transform:uppercase; margin-bottom:.8rem; display:block}
+.zone ul{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:.6rem}
+.zone li{background:var(--card); padding:.65rem .8rem; border-radius:4px; box-shadow:var(--shadow)}
+.zone.wall{grid-row:span 2; background-color:var(--card-2); border:2px solid var(--ink-soft);
+  background-image:linear-gradient(var(--rule-strong) 2px,transparent 2px),linear-gradient(90deg,var(--rule-strong) 2px,transparent 2px),linear-gradient(90deg,var(--rule-strong) 2px,transparent 2px);
+  background-size:64px 28px,64px 56px,64px 56px; background-position:0 0,0 0,32px 28px}
+.zone.wall .zsub{color:var(--ink-soft)}
+.zone.mirage{border:2px dashed var(--ink-faint); background:repeating-linear-gradient(0deg,transparent 0 6px,color-mix(in srgb,var(--blue-bg) 60%,transparent) 6px 7px)}
+.zone.mirage .zsub{color:var(--blue)}
+.zone.mirage .ghost{text-decoration:line-through; color:var(--ink-faint)}
+.zone.lever{border:2px solid var(--green); background:var(--green-bg)}
+.zone.lever .zsub{color:var(--green)}
+
+/* 10 time shifting */
+.timeline{position:relative; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:1rem; padding-top:3.2rem}
+.timeline::before{content:""; position:absolute; top:1.35rem; left:2%; right:2%; height:3px; background:var(--ink)}
+.tpoint{position:relative}
+.tpoint .yr{position:absolute; top:-3.2rem; left:0; font:800 1.15rem var(--mono); display:flex; flex-direction:column; gap:.2rem}
+.tpoint .yr::after{content:""; width:15px; height:15px; border-radius:50%; background:var(--paper); border:3px solid var(--ink); margin-top:.05rem}
+.tpoint .card{background:var(--card); box-shadow:var(--shadow); padding:.9rem 1rem; border-radius:4px; margin-top:.4rem}
+.tpoint .card b{display:block; font:700 .68rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:.3rem}
+.tpoint.now .yr{color:var(--red)}
+.tpoint.now .yr::after{background:var(--red); border-color:var(--red)}
+.tpoint.now .card{background:transparent; box-shadow:none; border:2px dashed var(--red); color:var(--ink-soft); font-style:italic}
+
+/* 11 worst possible idea */
+.trash{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1.2rem}
+.crumple{background:var(--card); box-shadow:var(--shadow); padding:1rem 1.1rem 1.1rem; border-radius:3px}
+.crumple .worst{position:relative; padding:.6rem .7rem; background:var(--red-bg); border-radius:4px; transform:rotate(-1.6deg); margin-bottom:.9rem}
+.crumple .worst::after{content:""; position:absolute; left:4%; right:4%; top:50%; height:3px; background:var(--red); transform:rotate(-4deg); opacity:.85}
+.crumple .worst small{display:block; font:700 .64rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--red)}
+.crumple .worst span{font-weight:700; color:var(--ink)}
+.crumple .worst.huge span{font:900 1.45rem/1.1 var(--sans); color:var(--red); text-transform:uppercase}
+.crumple .fix small{display:block; font:700 .64rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--green)}
+
+/* 12 laddering */
+.ladders{display:flex; flex-direction:column; gap:2.2rem}
+.ladder-title{font:700 .72rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:.5rem}
+.ladder{display:flex; align-items:flex-end; gap:6px; list-style:none; margin:0; padding:0}
+.ladder li{flex:1; min-height:calc(3.6rem + var(--i) * 2.6rem); background:var(--card); box-shadow:var(--shadow); border-top:5px solid var(--green); padding:.6rem .75rem; display:flex; flex-direction:column; justify-content:flex-start; font-size:.95rem; font-weight:600; position:relative}
+.ladder li:nth-child(1){border-top-color:var(--ink-faint)}
+.ladder li .ask{font:600 .62rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:.2rem; font-weight:600}
+.ladder li:last-child{background:var(--green-bg)}
+.landing{margin-top:.6rem; background:var(--ink); color:var(--paper); padding:1.4rem 1.5rem; border-radius:6px; display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:center}
+.landing b{font:700 .72rem var(--mono); letter-spacing:.14em; text-transform:uppercase; opacity:.8; display:block}
+.landing p{font-size:clamp(1.15rem,2.4vw,1.5rem); font-weight:700; margin:0; line-height:1.3}
+.landing svg{width:48px; height:48px}
+
+/* 13 zombie */
+.kit{display:grid; grid-template-columns:1.2fr 1fr; gap:1.3rem; align-items:start}
+.minimal{background:var(--card); box-shadow:var(--shadow); padding:1.3rem; border:2px solid var(--ink); position:relative}
+.minimal h3{font:700 .78rem var(--mono); letter-spacing:.14em; text-transform:uppercase; margin-bottom:.9rem}
+.fields{display:grid; grid-template-columns:repeat(3,1fr) 1.5fr; border:1.5px solid var(--ink)}
+.fields div{padding:.55rem .6rem; border-right:1.5px solid var(--ink); font:700 .82rem var(--mono)}
+.fields div:last-child{border-right:0; color:var(--red)}
+.fields small{display:block; font-weight:600; font-size:.75rem; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint)}
+.minimal p{margin-top:.9rem; color:var(--ink-soft)}
+.kit-side{display:flex; flex-direction:column; gap:1rem}
+.kit-item{background:var(--card); box-shadow:var(--shadow); padding:1rem 1.1rem; border-left:5px solid var(--amber)}
+.kit-item b{display:block; font:700 .68rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--amber); margin-bottom:.3rem}
+.mini-task{margin-top:.6rem; border:1px solid var(--rule-strong); border-radius:8px; padding:.6rem .7rem; background:var(--paper-2); font:.8rem var(--sans)}
+.mini-task .row{display:flex; gap:.4rem; margin-top:.4rem}
+.lbl-chip{font:700 .66rem var(--mono); padding:.2rem .45rem; border-radius:4px; letter-spacing:.06em; text-transform:uppercase}
+.lbl-chip.c{background:var(--blue-bg); color:var(--blue)} .lbl-chip.p{background:var(--green-bg); color:var(--green)}
+
+/* 14 anti-solution */
+.switcher{display:flex; justify-content:center; margin-bottom:1.3rem}
+.seg{display:inline-flex; border:2px solid var(--ink); border-radius:999px; overflow:hidden; background:var(--card)}
+.seg button{appearance:none; border:0; background:transparent; color:var(--ink); font:700 .8rem var(--mono); letter-spacing:.06em; padding:.55rem 1rem; cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink); color:var(--paper)}
+.no-js .switcher{display:none}
+.anti{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.8rem}
+.anti li{display:grid; grid-template-columns:1fr auto 1fr; gap:.8rem; align-items:stretch}
+.anti .w,.anti .f{padding:.85rem 1rem; border-radius:6px}
+.anti .w{background:var(--red-bg); color:var(--ink)}
+.anti .f{background:var(--green-bg); color:var(--ink)}
+.anti .w small,.anti .f small{display:block; font:700 .64rem var(--mono); letter-spacing:.12em; text-transform:uppercase}
+.anti .w small{color:var(--red)} .anti .f small{color:var(--green)}
+.anti .arrow{display:grid; place-items:center; font:700 1.2rem var(--mono); color:var(--ink-faint)}
+.anti[data-mode="worse"] .f,.anti[data-mode="worse"] .arrow{display:none}
+.anti[data-mode="fix"] .w,.anti[data-mode="fix"] .arrow{display:none}
+.anti[data-mode="worse"] li,.anti[data-mode="fix"] li{grid-template-columns:1fr}
+
+/* 15 what if: vales */
+.vouchers{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:1rem}
+.voucher{display:grid; grid-template-columns:4.2rem 1fr; background:var(--card); box-shadow:var(--shadow); border-radius:6px; overflow:hidden}
+.voucher .stub{background:var(--blue-bg); color:var(--blue); border-right:2px dashed var(--rule-strong); display:flex; flex-direction:column; align-items:center; justify-content:center; font:700 .62rem var(--mono); letter-spacing:.1em; text-transform:uppercase; gap:.2rem; padding:.6rem 0}
+.voucher .stub b{font-size:1.2rem; letter-spacing:0}
+.voucher .body{padding:.9rem 1rem}
+.voucher .body strong{font:italic 700 1.02rem var(--serif); color:var(--blue)}
+
+/* 16 provocation */
+.provs{display:flex; flex-direction:column; gap:1.6rem}
+.prov{display:grid; grid-template-columns:1.3fr 1fr; gap:1.4rem; align-items:center; border-bottom:1px solid var(--rule-strong); padding-bottom:1.6rem}
+.prov:last-child{border-bottom:0}
+.prov blockquote{margin:0; font:italic 700 clamp(1.4rem,3vw,2.1rem)/1.2 var(--serif); position:relative; padding-left:1.4rem; border-left:6px solid var(--red)}
+.prov .po{font:700 .68rem var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--red); display:block; margin-bottom:.4rem; font-style:normal}
+.prov .principle{background:var(--card); box-shadow:var(--shadow); padding:1rem 1.1rem; border-radius:4px}
+.prov .principle b{display:block; font:700 .66rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:var(--green); margin-bottom:.3rem}
+
+/* 17 persona journey: crachás */
+.badges{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.2rem}
+.badge{background:var(--card); box-shadow:var(--shadow); border-radius:12px; overflow:hidden; position:relative; display:flex; flex-direction:column}
+.badge .clip{height:14px; background:var(--card-2); border-bottom:1px solid var(--rule-strong); position:relative}
+.badge .clip::after{content:""; position:absolute; left:50%; top:4px; width:42px; height:6px; margin-left:-21px; border-radius:3px; background:var(--rule-strong)}
+.badge .head{padding:1rem 1.1rem .6rem; display:flex; gap:.8rem; align-items:center}
+.badge .av{width:46px; height:46px; border-radius:50%; display:grid; place-items:center; font:800 1.2rem var(--serif); background:var(--ink); color:var(--paper); flex:none}
+.badge h3{font-size:1.25rem}
+.badge .role{font:600 .72rem var(--mono); color:var(--ink-soft)}
+.badge .body{padding:0 1.1rem 1.1rem; font-size:.96rem}
+.badge .body b{font:700 .64rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-top:.6rem}
+.badge.out{background:var(--card-2)}
+.badge.out .av{background:var(--ink-soft)}
+.badge.out .stamp{position:absolute; top:3.2rem; right:.6rem}
+.cal{display:grid; grid-template-columns:repeat(7,1fr); gap:2px; font:600 .62rem var(--mono); margin-top:.5rem}
+.cal span{text-align:center; padding:.18rem 0; color:var(--ink-faint); border-radius:3px}
+.cal span.hit{background:var(--red); color:var(--paper); font-weight:800}
+.dots-conc{display:flex; align-items:center; gap:.4rem; margin-top:.5rem}
+.dots-conc i{display:block; border-radius:50%; background:var(--blue)}
+.dots-conc i.big{width:40px; height:40px} .dots-conc i.sm{width:14px; height:14px; opacity:.6}
+.pack{display:flex; height:16px; border:1.5px solid var(--green); border-radius:3px; overflow:hidden; margin-top:.5rem}
+.pack span{flex:1; border-right:1px solid var(--green)}
+.pack span:last-child{border-right:0}
+.pack span.used{background:repeating-linear-gradient(45deg,var(--green-bg) 0 4px,transparent 4px 8px)}
+
+/* 18 solution matrix */
+.matrix{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); border:2px solid var(--ink); background:var(--card); box-shadow:var(--shadow)}
+.matrix .col{border-right:1px dashed var(--rule-strong); padding:0 0 1rem; display:flex; flex-direction:column}
+.matrix .col:last-child{border-right:0}
+.matrix .col h3{font:700 .74rem var(--mono); letter-spacing:.12em; text-transform:uppercase; padding:.7rem .9rem; border-bottom:2px solid var(--ink); background:var(--card-2)}
+.matrix .col.low h3{color:var(--green)} .matrix .col.mid h3{color:var(--amber)} .matrix .col.high h3{color:var(--red)}
+.chip{margin:.9rem .9rem 0; padding:.75rem .85rem; border-radius:6px; background:var(--paper-2); border:1.5px solid var(--rule-strong)}
+.chip .num{display:inline-grid; place-items:center; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--ink); color:var(--paper); font:800 .8rem var(--mono); margin-right:.45rem; vertical-align:1px}
+.chip h4{display:inline; font-size:1rem}
+.chip p{margin:.4rem 0 0; font-size:.9rem; color:var(--ink-soft)}
+.chip p b{color:var(--ink)}
+.axis{display:flex; align-items:center; gap:.6rem; margin-top:.6rem; font:700 .72rem var(--mono); letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft)}
+.axis i{flex:1; height:2px; background:var(--ink-soft); position:relative}
+.axis i::after{content:""; position:absolute; right:-2px; top:-5px; border:6px solid transparent; border-left:9px solid var(--ink-soft); border-right:0}
+
+.chain{margin-top:2.4rem; background:var(--card); box-shadow:var(--shadow); padding:1.4rem; border-radius:6px}
+.chain h3{font-size:1.25rem; margin-bottom:.3rem}
+.chain .lead{color:var(--ink-soft); margin-bottom:1.2rem}
+.chain-grid{display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-areas:"a a side" "arr1 arr1 side" "b c side" "arr2 arr2 side" "d d side"; gap:0 1rem; align-items:center}
+.node{border:2px solid var(--ink); border-radius:8px; padding:.7rem .85rem; background:var(--paper-2); text-align:center; font-weight:700}
+.node small{display:block; font:600 .72rem/1.35 var(--mono); color:var(--ink-soft); margin-top:.25rem; font-weight:600}
+.node .num{display:inline-grid; place-items:center; width:1.5rem; height:1.5rem; border-radius:50%; background:var(--ink); color:var(--paper); font:800 .75rem var(--mono); margin-right:.35rem}
+.n-a{grid-area:a; justify-self:center; min-width:min(360px,100%); border-color:var(--green); background:var(--green-bg)}
+.n-b{grid-area:b} .n-c{grid-area:c}
+.n-d{grid-area:d; justify-self:center; min-width:min(360px,100%); border-style:dashed}
+.n-side{grid-area:side; border-style:dotted; align-self:center}
+.arr{height:54px; width:100%}
+.arr1{grid-area:arr1} .arr2{grid-area:arr2}
+.arr path{fill:none; stroke:var(--ink-soft); stroke-width:2}
+.arr polygon{fill:var(--ink-soft)}
+.blocks{display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-top:1rem}
+.blocks div{font:600 .8rem var(--mono); color:var(--red); background:var(--red-bg); padding:.5rem .7rem; border-radius:4px}
+
+/* fechamento: clímax */
+.closing{background:var(--band-bg); color:var(--band-ink); margin-top:3rem; padding:clamp(3rem,7vw,5.5rem) 0 clamp(3rem,6vw,4.5rem); position:relative; overflow:hidden}
+.closing::before{content:""; position:absolute; inset:0; background-image:repeating-linear-gradient(to bottom,transparent 0 31px,var(--band-rule) 31px 32px); opacity:.5; pointer-events:none}
+.closing .wrap{position:relative}
+.closing a{color:var(--band-accent)}
+.closing .kicker{color:var(--band-accent)}
+.closing .kicker span+span::before{color:var(--band-soft)}
+.closing h2{font-size:clamp(2.3rem,6vw,4.2rem); letter-spacing:-.025em}
+.closing .lede{color:var(--band-soft); font-size:1.15rem; max-width:44rem; margin-top:1rem}
+.closing code{background:var(--band-card); border-color:var(--band-rule); color:var(--band-ink)}
+.diagnosis{display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; margin:2.4rem 0 3rem}
+.diag{border:1.5px solid var(--band-rule); border-radius:8px; padding:1.3rem 1.4rem; background:var(--band-card); color:var(--band-ink)}
+.checks label{color:var(--band-ink)}
+.second .card2,.outscope{background-color:var(--band-bg); color:var(--band-ink)}.diag b{font:700 .7rem var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--band-accent); display:block; margin-bottom:.5rem}
+.diag p{font-size:1.15rem; line-height:1.45; margin:0}
+.decision{background:#fffdf5; color:#1c2520; border-radius:4px; padding:clamp(1.4rem,4vw,2.6rem); position:relative; box-shadow:0 30px 60px -30px #000c}
+.decision::after{content:""; position:absolute; left:0; right:0; bottom:-12px; height:12px; background:linear-gradient(-45deg,transparent 8px,#fffdf5 0) 0 0/16px 12px repeat-x,linear-gradient(45deg,transparent 8px,#fffdf5 0) 0 0/16px 12px repeat-x}
+.decision .eyebrow{font:700 .74rem var(--mono); letter-spacing:.16em; text-transform:uppercase; color:#a3261c}
+.decision h3{font-size:clamp(2rem,5.2vw,3.6rem); margin:.4rem 0 .6rem; letter-spacing:-.02em; color:#1c2520}
+.decision .what{font-size:1.15rem; color:#3d4741; max-width:40rem}
+.decision .stamp{position:absolute; top:1.4rem; right:1.4rem; font-size:.9rem; color:#1b6343; background:#fffdf5cc}
+.wallet{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0; margin-top:1.8rem; border:2px solid #1c2520}
+.wallet .st{padding:1rem 1.1rem 1.2rem; border-right:2px solid #1c2520; position:relative}
+.wallet .st:last-child{border-right:0}
+.wallet .st .ord{font:700 .68rem var(--mono); letter-spacing:.12em; text-transform:uppercase; color:#5b665f}
+.wallet .st h4{font-size:1.45rem; margin:.2rem 0 .4rem}
+.wallet .st p{margin:0; font-size:.95rem; color:#3d4741}
+.wallet .st.a{background:#f8e9c4} .wallet .st.a h4{color:#7d5200}
+.wallet .st.b{background:#dfe8f6} .wallet .st.b h4{color:#214c8a}
+.wallet .st.c{background:#dcefe3} .wallet .st.c h4{color:#1b6343}
+.wallet .st:not(:last-child)::after{content:""; position:absolute; right:-13px; top:50%; margin-top:-12px; width:0; height:0; border:12px solid transparent; border-left:12px solid #1c2520; border-right:0; z-index:1}
+.decision .fine{margin-top:1.2rem; font:600 .82rem var(--mono); color:#4b564f; display:flex; gap:.5rem 1.4rem; flex-wrap:wrap}
+.decision .fine span::before{content:"+ "; color:#1b6343}
+
+.second{display:grid; grid-template-columns:auto 1fr; gap:1.2rem; margin-top:3.2rem; align-items:start}
+.second .connector{writing-mode:vertical-rl; transform:rotate(180deg); font:700 .7rem var(--mono); letter-spacing:.18em; text-transform:uppercase; color:var(--band-accent); border-left:2px dashed var(--band-accent); padding-left:.5rem; align-self:stretch; text-align:center}
+.second .card2{border:2px dashed var(--band-soft); border-radius:6px; padding:1.4rem 1.5rem}
+.second .eyebrow{font:700 .72rem var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--band-accent)}
+.second h3{font-size:clamp(1.6rem,3.4vw,2.3rem); margin:.3rem 0 .5rem}
+.second p{color:var(--band-soft); margin:0}
+.deps{display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.8rem}
+.deps span{font:700 .7rem var(--mono); border:1.5px solid var(--band-soft); border-radius:999px; padding:.3rem .6rem; color:var(--band-ink)}
+
+.final-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:1.6rem; margin-top:3.2rem}
+.final-grid h3{font:700 .8rem var(--mono); letter-spacing:.14em; text-transform:uppercase; color:var(--band-accent); margin-bottom:1rem}
+.checks{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:.6rem}
+.checks label{display:flex; gap:.8rem; align-items:flex-start; background:var(--band-card); border:1px solid var(--band-rule); border-radius:6px; padding:.8rem .9rem; cursor:pointer; font-size:1.05rem}
+.checks input{appearance:none; -webkit-appearance:none; flex:none; width:1.3rem; height:1.3rem; border:2px solid var(--band-accent); border-radius:4px; margin:.15rem 0 0; display:grid; place-items:center; cursor:pointer; background:transparent}
+.checks input:checked{background:var(--band-accent)}
+.checks input:checked::after{content:""; width:.35rem; height:.7rem; border:solid var(--band-bg); border-width:0 3px 3px 0; transform:rotate(45deg) translate(-1px,-1px)}
+.checks input:focus-visible{outline:3px solid var(--band-ink); outline-offset:2px}
+.checks label:has(input:checked) span{color:var(--band-soft)}
+.checks .hint{font:600 .74rem var(--sans); color:var(--band-soft); margin-top:.6rem}
+.outscope{border:1.5px solid var(--band-rule); border-radius:6px; padding:1.2rem 1.3rem; background:repeating-linear-gradient(135deg,transparent 0 12px,color-mix(in srgb,var(--band-card) 60%,transparent) 12px 13px)}
+.outscope ul{list-style:none; margin:0 0 1rem; padding:0; display:flex; flex-direction:column; gap:.4rem}
+.outscope li{font-size:1.08rem; text-decoration:line-through; text-decoration-color:var(--band-red); text-decoration-thickness:2px; color:var(--band-soft)}
+.outscope p{margin:0; color:var(--band-ink); font-style:italic}
+
+.sources{margin-top:3.4rem; padding-top:1.4rem; border-top:1px solid var(--band-rule); display:flex; justify-content:space-between; gap:1rem; flex-wrap:wrap; font:600 .78rem var(--mono); color:var(--band-soft)}
+
+/* responsivo */
+@media (max-width:900px){
+  .cover .wrap{grid-template-columns:1fr}
+  .receipt{transform:none; justify-self:start}
+  .dig,.roots{grid-template-columns:1fr}
+  .burst{grid-template-columns:1fr 1fr}
+  .burst .star-wrap{grid-column:1/-1; grid-row:1; max-width:220px; justify-self:center}
+  .burst .qs.left{text-align:left}
+  .cmap{grid-template-columns:1fr}
+  .zone.wall{grid-row:auto}
+  .timeline{grid-template-columns:1fr; padding-top:0; padding-left:2.2rem; gap:1.4rem}
+  .timeline::before{top:0; bottom:0; left:.55rem; right:auto; width:3px; height:auto}
+  .tpoint .yr{position:static; flex-direction:row; align-items:center; gap:.6rem}
+  .tpoint .yr::after{order:-1; margin:0 0 0 -2.15rem}
+  .kit{grid-template-columns:1fr}
+  .prov{grid-template-columns:1fr}
+  .matrix{grid-template-columns:1fr}
+  .matrix .col{border-right:0; border-bottom:1px dashed var(--rule-strong)}
+  .chain-grid{grid-template-columns:1fr 1fr; grid-template-areas:"a a" "arr1 arr1" "b c" "arr2 arr2" "d d" "side side"}
+  .n-side{margin-top:1rem}
+  .diagnosis,.final-grid{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .keys{grid-template-columns:repeat(4,minmax(0,1fr))}
+  .ladder{flex-direction:column-reverse; align-items:stretch; gap:6px}
+  .ladder li{min-height:0; margin-left:calc(var(--i) * .9rem)}
+  .anti li{grid-template-columns:1fr}
+  .anti .arrow{transform:rotate(90deg); height:1.2rem}
+  .wallet{grid-template-columns:1fr}
+  .wallet .st{border-right:0; border-bottom:2px solid #1c2520}
+  .wallet .st:last-child{border-bottom:0}
+  .wallet .st:not(:last-child)::after{right:50%; top:auto; bottom:-13px; margin:0 -12px 0 0; border:12px solid transparent; border-top:12px solid #1c2520; border-bottom:0}
+  .decision .stamp{position:static; display:inline-block; margin-bottom:.8rem}
+  .second{grid-template-columns:1fr}
+  .second .connector{writing-mode:horizontal-tb; transform:none; border-left:0; border-bottom:2px dashed var(--band-accent); padding:0 0 .4rem; text-align:left}
+  .sheet-head{grid-template-columns:auto 1fr}
+  .sheet-head .count{grid-column:1/-1; justify-self:start; text-align:left}
+  .sheet-head .count b{display:inline; margin-right:.3rem}
+  .sheet-head .sub{grid-column:1/-1}
+  .meta-strip{grid-template-columns:repeat(2,auto)}
+  .meta-strip div:nth-child(2){border-right:0}
+  .blocks{grid-template-columns:1fr}
+  .topbar .hide-sm{display:none}
+}
+@media (max-width:480px){
+  .burst{grid-template-columns:1fr}
+  .fields{grid-template-columns:1fr 1fr}
+  .fields div:nth-child(2){border-right:0}
+  .fields div:nth-child(-n+2){border-bottom:1.5px solid var(--ink)}
+  .chain-grid{grid-template-columns:1fr; grid-template-areas:"a" "arr1" "b" "c" "arr2" "d" "side"}
+  .n-c{margin-top:.6rem}
+  .landing{grid-template-columns:1fr}
+}
+@media print{
+  .topbar,.switcher,.keys{display:none}
+  .closing{background:#fff; color:#000}
+}
+</style>
+</head>
+<body class="no-js">
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand"><b>FreelanceFlow</b> · caderneta do a receber <span class="hide-sm">· brainstorm de 23/11/2026</span></div>
+    <a class="btn ghost hide-sm" href="#fechamento">ir ao fechamento</a>
+    <button class="btn" id="themeBtn" type="button" aria-label="Alternar tema">Tema: automático</button>
+  </div>
+</header>
+
+<main>
+
+<!-- CAPA -->
+<section class="cover" aria-labelledby="titulo">
+  <div class="wrap">
+    <div>
+      <div class="kicker"><span>Brainstorm</span><span>sessão autônoma</span><span>completa</span></div>
+      <h1 id="titulo">Quem me deve? Quanto? <em>Desde quando?</em></h1>
+      <p class="lede">Feature nova do FreelanceFlow: dinheiro a receber por cliente e o que ainda não foi cobrado. O objetivo é entender qual problema de dinheiro e de cliente vale resolver primeiro, para o freelancer que cobra por hora e atende vários clientes. A solução ainda não estava decidida quando a sessão começou.</p>
+      <dl class="meta-strip">
+        <div><dt>Data</dt><dd>23/11/2026</dd></div>
+        <div><dt>Atualizado</dt><dd>16:31</dd></div>
+        <div><dt>Técnicas</dt><dd>18</dd></div>
+        <div><dt>Ideias</dt><dd>98</dd></div>
+      </dl>
+    </div>
+
+    <aside class="receipt" aria-label="Comanda: como o app conta o dinheiro hoje">
+      <div class="r-head"><b>COMANDA</b><small>freelancer por hora · como o app conta hoje</small></div>
+      <div class="r-line"><span class="lbl">Trabalhado</span><span class="dots"></span><span class="val">timeSpent x taxa</span></div>
+      <div class="r-line"><span class="lbl">Cobrado</span><span class="dots"></span><span class="val na">sem estado</span></div>
+      <div class="r-line"><span class="lbl">Pago</span><span class="dots"></span><span class="val na">sem estado</span></div>
+      <div class="r-line"><span class="lbl">Vencido</span><span class="dots"></span><span class="val na">sem estado</span></div>
+      <div class="r-total">
+        <p>total no Header</p>
+        <div class="big">Σ timeSpent x taxa</div>
+        <p>somado para sempre · nunca diminui</p>
+      </div>
+      <span class="stamp">um número só</span>
+    </aside>
+  </div>
+</section>
+
+<!-- ÍNDICE -->
+<nav class="wrap index" aria-labelledby="indice">
+  <h2 id="indice">Índice da caderneta</h2>
+  <ol>
+    <li class="special"><a href="#fatos"><span class="fl">fl. 00</span><span class="t">Fatos do código</span><span class="dots"></span><span class="n">4 fatos</span></a></li>
+    <li><a href="#t01"><span class="fl">fl. 01</span><span class="t">Five Whys</span><span class="dots"></span><span class="n">6</span></a></li>
+    <li><a href="#t02"><span class="fl">fl. 02</span><span class="t">Starbursting</span><span class="dots"></span><span class="n">6</span></a></li>
+    <li><a href="#t03"><span class="fl">fl. 03</span><span class="t">Reverse Brainstorming</span><span class="dots"></span><span class="n">7</span></a></li>
+    <li><a href="#t04"><span class="fl">fl. 04</span><span class="t">Role Playing</span><span class="dots"></span><span class="n">8</span></a></li>
+    <li><a href="#t05"><span class="fl">fl. 05</span><span class="t">Assumption Reversal</span><span class="dots"></span><span class="n">7</span></a></li>
+    <li><a href="#t06"><span class="fl">fl. 06</span><span class="t">SCAMPER</span><span class="dots"></span><span class="n">7</span></a></li>
+    <li><a href="#t07"><span class="fl">fl. 07</span><span class="t">Cross-Pollination</span><span class="dots"></span><span class="n">8</span></a></li>
+    <li><a href="#t08"><span class="fl">fl. 08</span><span class="t">Failure Analysis</span><span class="dots"></span><span class="n">7</span></a></li>
+    <li><a href="#t09"><span class="fl">fl. 09</span><span class="t">Constraint Mapping</span><span class="dots"></span><span class="n">6</span></a></li>
+    <li><a href="#t10"><span class="fl">fl. 10</span><span class="t">Time Shifting</span><span class="dots"></span><span class="n">4</span></a></li>
+    <li><a href="#t11"><span class="fl">fl. 11</span><span class="t">Worst Possible Idea</span><span class="dots"></span><span class="n">5</span></a></li>
+    <li><a href="#t12"><span class="fl">fl. 12</span><span class="t">Laddering</span><span class="dots"></span><span class="n">4</span></a></li>
+    <li><a href="#t13"><span class="fl">fl. 13</span><span class="t">Zombie Apocalypse</span><span class="dots"></span><span class="n">3</span></a></li>
+    <li><a href="#t14"><span class="fl">fl. 14</span><span class="t">Anti-Solution</span><span class="dots"></span><span class="n">5</span></a></li>
+    <li><a href="#t15"><span class="fl">fl. 15</span><span class="t">What If</span><span class="dots"></span><span class="n">8</span></a></li>
+    <li><a href="#t16"><span class="fl">fl. 16</span><span class="t">Provocation</span><span class="dots"></span><span class="n">3</span></a></li>
+    <li><a href="#t17"><span class="fl">fl. 17</span><span class="t">Persona Journey</span><span class="dots"></span><span class="n">4</span></a></li>
+    <li><a href="#t18"><span class="fl">fl. 18</span><span class="t">Solution Matrix</span><span class="dots"></span><span class="n">2 achados</span></a></li>
+    <li class="special"><a href="#fechamento"><span class="fl">final</span><span class="t">Fechamento: a decisão</span><span class="dots"></span><span class="n">síntese</span></a></li>
+  </ol>
+</nav>
+
+<!-- FL. 00 FATOS DO CÓDIGO -->
+<section class="sheet" id="fatos" aria-labelledby="h-fatos">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 00</span>
+      <h2 id="h-fatos">Fatos do código, antes de qualquer ideia</h2>
+      <span class="count"><b>4</b>fatos</span>
+      <p class="sub">A auditoria do livro-caixa: o que o app já tem, o que só existe no papel e o que conta errado.</p>
+    </div>
+
+    <div class="facts">
+      <article class="fact">
+        <span class="no">FATO 1</span>
+        <span class="stamp">sem UI</span>
+        <h3>O cliente é fixo por falta de tela, não de modelo</h3>
+        <p><code>ADD_CLIENT</code>, <code>UPDATE_CLIENT</code> e <code>DELETE_CLIENT</code> existem no reducer, mas nenhum componente os despacha. Só o Header usa <code>getTotalRevenue</code>.</p>
+        <div class="viz">
+          <table class="actions-tbl">
+            <thead><tr><th>Action no reducer</th><th>Quem despacha</th></tr></thead>
+            <tbody>
+              <tr><td>ADD_CLIENT</td><td class="none">nenhum componente</td></tr>
+              <tr><td>UPDATE_CLIENT</td><td class="none">nenhum componente</td></tr>
+              <tr><td>DELETE_CLIENT</td><td class="none">nenhum componente</td></tr>
+              <tr><td>getTotalRevenue</td><td class="ok">só o Header</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <article class="fact">
+        <span class="no">FATO 2</span>
+        <span class="stamp">nunca gravado</span>
+        <h3>Sem data de cada trabalho, não há mês nem atraso</h3>
+        <p><code>TimeEntry</code> existe nos tipos, mas <code>timeEntries</code> nunca é gravado; só o <code>timeSpent</code> acumulado. Sem data de cada trabalho, não há "a receber em novembro" nem "atrasado".</p>
+        <div class="viz">
+          <div class="type-vs">
+            <div><span class="k">tipo TimeEntry</span><div class="v">existe</div></div>
+            <div><span class="k">timeEntries</span><div class="v bad">nunca gravado</div></div>
+            <div><span class="k">timeSpent</span><div class="v">só o acumulado</div></div>
+            <div><span class="k">"a receber em novembro"</span><div class="v bad">impossível hoje</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="fact">
+        <span class="no">FATO 3</span>
+        <span class="stamp">sem estado</span>
+        <h3>A receita só sobe</h3>
+        <p>Receita = <code>timeSpent</code> x taxa, somada para sempre. Não existe estado cobrado, pago ou vencido; o total do Header nunca diminui.</p>
+        <div class="viz mono-chart">
+          <svg viewBox="0 0 320 96" role="img" aria-label="Esquema sem escala: o total do Header só sobe, nunca desce, porque não há estado de cobrado ou pago">
+            <line x1="20" y1="82" x2="310" y2="82" stroke="currentColor" stroke-opacity=".35"/>
+            <line x1="20" y1="8" x2="20" y2="82" stroke="currentColor" stroke-opacity=".35"/>
+            <path d="M20 78 H70 V66 H120 V60 H150 V44 H205 V38 H250 V22 H305" style="fill:none;stroke:var(--green);stroke-width:3"/>
+            <text x="28" y="18" font-size="11" fill="currentColor">total do Header</text>
+            <text x="270" y="94" font-size="11" fill="currentColor">tempo</text>
+            <text x="150" y="76" font-size="11" style="fill:var(--red)">nenhum degrau desce</text>
+          </svg>
+          <div class="caption">Esquema sem escala e sem valores.</div>
+        </div>
+      </article>
+
+      <article class="fact">
+        <span class="no">FATO 4</span>
+        <span class="stamp amber">abaixo da realidade</span>
+        <h3>O timer ligado fica fora da conta</h3>
+        <p><code>timeSpent</code> não inclui o timer em andamento, então o a receber mostrado fica abaixo da realidade enquanto há timer ativo.</p>
+        <div class="viz">
+          <div class="timerbar" role="img" aria-label="Esquema: timeSpent entra na conta; o timer em andamento fica de fora">
+            <div class="done">timeSpent</div>
+            <div class="live">timer ativo</div>
+          </div>
+          <div class="timerbar-legend"><span>entra no a receber</span><span>fica de fora até parar</span></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 01 FIVE WHYS -->
+<section class="sheet" id="t01" aria-labelledby="h-t01">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 01</span>
+      <h2 id="h-t01">Five Whys</h2>
+      <span class="count"><b>6</b>ideias</span>
+      <p class="sub">Três poços cavados a partir de três sintomas. Cada "por quê" desce uma camada, até aparecer a raiz.</p>
+    </div>
+
+    <div class="dig">
+      <div class="shaft entry" data-kind="idea">
+        <div class="layer q">Por que quer ver o a receber?</div>
+        <div class="layer">Para saber se pode gastar.</div>
+        <div class="layer q">Por que não sabe?</div>
+        <div class="layer">O dinheiro vive em planilha, conversa e memória, longe do registro de horas.</div>
+      </div>
+      <div class="shaft entry" data-kind="idea">
+        <div class="layer q">Por que esquece de cobrar?</div>
+        <div class="layer">Cobrar é evento no calendário do cliente (fechamento, NF), não no do freelancer; nada o lembra na hora certa.</div>
+      </div>
+      <div class="shaft entry" data-kind="idea">
+        <div class="layer q">Por que atrasa a cobrança?</div>
+        <div class="layer">Juntar horas, descrever e calcular dá trabalho e empurra para "semana que vem".</div>
+      </div>
+    </div>
+
+    <div class="roots">
+      <div class="root entry" data-kind="idea"><span class="letter">A</span><span class="tag">raiz A · custo de cobrar</span><p>O custo de transformar horas em cobrança pronta é alto; baixar isso a um clique vale mais que qualquer gráfico.</p></div>
+      <div class="root entry" data-kind="idea"><span class="letter">B</span><span class="tag">raiz B · escopo escorrendo</span><p>Ele não vê qual cliente estica o trabalho além do combinado, e perde dinheiro sem perceber.</p></div>
+      <div class="root entry" data-kind="idea"><span class="letter">C</span><span class="tag">raiz C · concentração</span><p>Depende de 1 ou 2 clientes sem enxergar a concentração de receita; é risco de dinheiro, não de organização.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 02 STARBURSTING -->
+<section class="sheet" id="t02" aria-labelledby="h-t02">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 02</span>
+      <h2 id="h-t02">Starbursting</h2>
+      <span class="count"><b>6</b>ideias</span>
+      <p class="sub">Uma estrela de seis pontas, uma pergunta em cada ponta, o a receber no meio.</p>
+    </div>
+
+    <div class="burst entry" data-kind="idea">
+      <div class="qs left">
+        <div class="qchip"><small>quem</small>Quem me deve?</div>
+        <div class="qchip"><small>quanto</small>Quanto?</div>
+        <div class="qchip"><small>quando</small>Desde quando?</div>
+      </div>
+      <div class="star-wrap">
+        <svg class="star-svg" viewBox="0 0 200 200" aria-hidden="true">
+          <polygon points="100,10 122.5,61 177.9,55 145,100 177.9,145 122.5,139 100,190 77.5,139 22.1,145 55,100 22.1,55 77.5,61"/>
+          <text x="100" y="97" text-anchor="middle">a</text>
+          <text x="100" y="113" text-anchor="middle">receber</text>
+        </svg>
+      </div>
+      <div class="qs">
+        <div class="qchip"><small>o quê</small>Já mandei a cobrança?</div>
+        <div class="qchip"><small>como</small>Combinamos prazo?</div>
+        <div class="qchip"><small>por quê</small>Qual o ciclo de cada cliente?</div>
+      </div>
+    </div>
+
+    <div class="burst-more">
+      <div class="note-card entry" data-kind="idea">
+        <h4>O que conta como não cobrado?</h4>
+        <div class="pills"><span class="pill">hora registrada</span><span class="pill">hora entregue (Done)</span><span class="pill">hora aprovada pelo cliente</span></div>
+        <p>Cada definição muda o número.</p>
+      </div>
+      <div class="note-card entry" data-kind="idea">
+        <h4>Quando o dinheiro vira meu?</h4>
+        <div class="track"><span>registro</span><i></i><span>entrega</span><i></i><span>nota</span><i></i><span>recebimento</span></div>
+        <p>Mostrar os estados lado a lado.</p>
+      </div>
+      <div class="note-card entry" data-kind="idea">
+        <h4>Onde olha de manhã?</h4>
+        <p>Um número "a receber" no topo do quadro pode bastar sem criar tela nova.</p>
+      </div>
+      <div class="note-card entry" data-kind="idea">
+        <h4>Como cobra?</h4>
+        <div class="pills"><span class="pill">mês fechado</span><span class="pill">projeto</span><span class="pill">marco</span><span class="pill">hora avulsa</span></div>
+        <p>O ciclo varia por cliente e define a feature.</p>
+      </div>
+      <div class="note-card entry" data-kind="idea">
+        <h4>De onde veio a taxa?</h4>
+        <p>A taxa por tarefa sobrescreve a do cliente; o valor a receber deve mostrar de onde veio a taxa usada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 03 REVERSE BRAINSTORMING -->
+<section class="sheet" id="t03" aria-labelledby="h-t03">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 03</span>
+      <h2 id="h-t03">Reverse Brainstorming</h2>
+      <span class="count"><b>7</b>ideias</span>
+      <p class="sub">Débito e crédito: na coluna vermelha, como garantir o prejuízo; na verde, o lançamento que estorna.</p>
+    </div>
+
+    <table class="ledger">
+      <caption>Livro de lançamentos invertidos</caption>
+      <thead><tr><th scope="col">Nº</th><th scope="col" class="deb">Débito · como piorar</th><th scope="col" class="cred">Crédito · inverso</th></tr></thead>
+      <tbody>
+        <tr class="entry" data-kind="idea"><td class="n">01</td><td class="deb">Como garantir que nunca receba? Deixar horas sem cobrar por meses, o que o app hoje permite sem alerta.</td><td class="cred"><b>Aviso de horas não cobradas há X dias.</b></td></tr>
+        <tr class="entry" data-kind="idea"><td class="n">02</td><td class="deb">Como fazer o cliente brigar com a fatura? Sem detalhe nem data.</td><td class="cred"><b>Fatura com linha por tarefa e período.</b></td></tr>
+        <tr class="entry" data-kind="idea"><td class="n">03</td><td class="deb">Como esconder quem atrasa? Misturar tudo num total.</td><td class="cred"><b>Ranking dos mais antigos em aberto.</b></td></tr>
+        <tr class="entry" data-kind="idea"><td class="n">04</td><td class="deb">Como trabalhar de graça sem notar? Tarefa sem cliente ou com <code>isBillable</code> esquecido.</td><td class="cred"><b>Avisar horas registradas sem cliente.</b></td></tr>
+        <tr class="entry" data-kind="idea"><td class="n">05</td><td class="deb">Como estourar o orçamento sem avisar? Sem teto por cliente.</td><td class="cred"><b>Teto de horas ou reais com alerta a 80%.</b></td></tr>
+        <tr class="entry" data-kind="idea"><td class="n">06</td><td class="deb">Como perder histórico? <code>DELETE_CLIENT</code> zera <code>clientId</code> das tarefas e orfana o dinheiro.
+          <span class="errata">errata do próprio log: escrito <del>DELTE_CLIENT</del>, leia DELETE_CLIENT</span></td><td class="cred"><b>Arquivar cliente em vez de apagar.</b></td></tr>
+        <tr class="entry" data-kind="idea"><td class="n">07</td><td class="deb">Como ter número errado com confiança? Taxa alterada reescreve o passado.</td><td class="cred"><b>Congelar a taxa no momento da cobrança.</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FL. 04 ROLE PLAYING -->
+<section class="sheet" id="t04" aria-labelledby="h-t04">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 04</span>
+      <h2 id="h-t04">Role Playing</h2>
+      <span class="count"><b>8</b>ideias</span>
+      <p class="sub">Oito vozes na mesma conversa: quem trabalha, quem paga e quem confere a conta.</p>
+    </div>
+
+    <div class="chat-legend"><span><i style="background:var(--card);border:1px solid var(--rule-strong)"></i>quem paga ou confere</span><span><i style="background:var(--green-bg)"></i>quem trabalha</span></div>
+    <div class="chat">
+      <div class="bubble me entry" data-kind="idea"><span class="who">Freelancer solo</span>Abro o app e quero saber em 3 segundos quanto entra neste mês e quem me deve.</div>
+      <div class="bubble them entry" data-kind="idea"><span class="who">Cliente pequeno</span>Quero uma fatura que entendo sem perguntar, com horas por tarefa e total em reais.</div>
+      <div class="bubble them entry" data-kind="idea"><span class="who">Contador</span>Preciso exportar período, cliente, horas, valor e status (cobrado/pago) em CSV sem refazer conta.</div>
+      <div class="bubble me entry" data-kind="idea"><span class="who">Freelancer com 5 clientes</span>Preciso ver quem consome minha semana versus quem paga melhor por hora real.</div>
+      <div class="bubble them entry" data-kind="idea"><span class="who">Cliente que atrasa</span>Prefiro um lembrete educado a uma cobrança dura; o tom importa para a relação.</div>
+      <div class="bubble me entry" data-kind="idea"><span class="who">Primeiro mês</span>Ainda não tenho clientes cadastrados; cadastro em dois campos, sem fricção, é pré-requisito de tudo.</div>
+      <div class="bubble me entry" data-kind="idea"><span class="who">Freelancer sazonal</span>Mês forte e mês seco; quero média móvel para saber quanto posso gastar.</div>
+      <div class="bubble me entry" data-kind="idea"><span class="who">Eu daqui a um mês</span>Quero lembrar o combinado com cada cliente (prazo, taxa, dia de fechamento) sem abrir outra ferramenta.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 05 ASSUMPTION REVERSAL -->
+<section class="sheet" id="t05" aria-labelledby="h-t05">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 05</span>
+      <h2 id="h-t05">Assumption Reversal</h2>
+      <span class="count"><b>7</b>ideias</span>
+      <p class="sub">Rasuras na caderneta: a premissa riscada, a inversão escrita por cima à mão.</p>
+    </div>
+
+    <div class="rasuras">
+      <div class="rasura entry" data-kind="idea"><span class="lbl">premissa</span><p class="old">Cliente é etiqueta da tarefa.</p><p class="new">Cliente é a unidade principal e o quadro vira filtro por cliente.</p></div>
+      <div class="rasura entry" data-kind="idea"><span class="lbl">premissa</span><p class="old">Dinheiro vem de horas.</p><p class="new">Valor fixo ou pacote por tarefa quando a hora não representa o valor entregue.</p></div>
+      <div class="rasura entry" data-kind="idea"><span class="lbl">premissa</span><p class="old">Cobrar acontece no fim.</p><p class="new">Cobrança contínua; cada tarefa Done entra numa fila cobrável.</p></div>
+      <div class="rasura entry" data-kind="idea"><span class="lbl">premissa</span><p class="old">O app só registra.</p><p class="new">O app prevê o mês pelo ritmo atual e pelas estimativas das tarefas abertas.</p></div>
+      <div class="rasura entry" data-kind="idea"><span class="lbl">premissa</span><p class="old">O a receber é um número.</p><p class="new">É uma linha do tempo de quando cada real deve entrar.</p></div>
+      <div class="rasura entry" data-kind="idea"><span class="lbl">premissa</span><p class="old">Cobra-se o que se trabalhou.</p><p class="new">Mostrar estimado versus gasto por cliente para precificar melhor o próximo orçamento.</p></div>
+      <div class="rasura entry" data-kind="idea"><span class="lbl">premissa</span><p class="old">Uma moeda só.</p><p class="new">Cliente estrangeiro paga em outra moeda.</p><span class="flag">fora do escopo agora, mas vale registrar</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 06 SCAMPER -->
+<section class="sheet" id="t06" aria-labelledby="h-t06">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 06</span>
+      <h2 id="h-t06">SCAMPER</h2>
+      <span class="count"><b>7</b>ideias</span>
+      <p class="sub">Uma caixa registradora de sete teclas. Aperte uma letra e o visor mostra a ideia.</p>
+    </div>
+
+    <div class="register">
+      <div class="lcd" id="lcd">
+        <div class="panel entry" data-kind="idea" id="sc-s" role="tabpanel" aria-labelledby="k-s"><h3>S · Substituir</h3><p>Substituir o total do Header por painel com três faixas: não cobrado, cobrado em aberto, recebido.</p></div>
+        <div class="panel entry" data-kind="idea" id="sc-c" role="tabpanel" aria-labelledby="k-c"><h3>C · Combinar</h3><p>Combinar cliente, taxa e prazo de pagamento num cadastro que alimenta o vencimento automático.</p></div>
+        <div class="panel entry" data-kind="idea" id="sc-a" role="tabpanel" aria-labelledby="k-a"><h3>A · Adaptar</h3><p>Adaptar o extrato bancário: lista cronológica de entradas previstas e recebidas por cliente.</p></div>
+        <div class="panel entry" data-kind="idea" id="sc-m" role="tabpanel" aria-labelledby="k-m"><h3>M · Modificar</h3><p>Modificar a tarefa Done para sugerir "pronta para cobrar" com um toque.</p></div>
+        <div class="panel entry" data-kind="idea" id="sc-p" role="tabpanel" aria-labelledby="k-p"><h3>P · Outro uso</h3><p>Outro uso do timer: ao parar numa tarefa sem cliente, perguntar de quem é a hora.</p></div>
+        <div class="panel entry" data-kind="idea" id="sc-e" role="tabpanel" aria-labelledby="k-e"><h3>E · Eliminar</h3><p>Eliminar a fatura formal no começo: um status por hora (aberta, cobrada, paga) já responde ao goal.</p></div>
+        <div class="panel entry" data-kind="idea" id="sc-r" role="tabpanel" aria-labelledby="k-r"><h3>R · Reverter</h3><p>Reverter o fluxo: começar pelo cliente e montar a semana dele, em vez de começar pela tarefa.</p></div>
+      </div>
+      <div class="keys" role="tablist" aria-label="Letras do SCAMPER">
+        <button class="key" role="tab" id="k-s" aria-controls="sc-s" aria-selected="true"><b>S</b><span>substituir</span></button>
+        <button class="key" role="tab" id="k-c" aria-controls="sc-c" aria-selected="false" tabindex="-1"><b>C</b><span>combinar</span></button>
+        <button class="key" role="tab" id="k-a" aria-controls="sc-a" aria-selected="false" tabindex="-1"><b>A</b><span>adaptar</span></button>
+        <button class="key" role="tab" id="k-m" aria-controls="sc-m" aria-selected="false" tabindex="-1"><b>M</b><span>modificar</span></button>
+        <button class="key" role="tab" id="k-p" aria-controls="sc-p" aria-selected="false" tabindex="-1"><b>P</b><span>outro uso</span></button>
+        <button class="key" role="tab" id="k-e" aria-controls="sc-e" aria-selected="false" tabindex="-1"><b>E</b><span>eliminar</span></button>
+        <button class="key" role="tab" id="k-r" aria-controls="sc-r" aria-selected="false" tabindex="-1"><b>R</b><span>reverter</span></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 07 CROSS-POLLINATION -->
+<section class="sheet" id="t07" aria-labelledby="h-t07">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 07</span>
+      <h2 id="h-t07">Cross-Pollination</h2>
+      <span class="count"><b>8</b>ideias</span>
+      <p class="sub">Selos de outros ramos: cada carta traz de fora um jeito de lidar com dinheiro que alguém já resolveu.</p>
+    </div>
+
+    <div class="stamps">
+      <div class="postal entry" data-kind="idea"><span class="postmark">banco</span><span class="from">do banco</span><h4>Conta corrente com datas</h4><p>Saldo, extrato e agenda de recebíveis; dinheiro como conta corrente com datas.</p></div>
+      <div class="postal entry" data-kind="idea"><span class="postmark">pronto socorro</span><span class="from">do pronto-socorro</span><h4>Triagem por urgência</h4><p>Cliente com cobrança vencida ou horas sem cobrar há muito sobe ao topo.</p></div>
+      <div class="postal entry" data-kind="idea"><span class="postmark">restau rante</span><span class="from">do restaurante</span><h4>Comanda aberta por mesa</h4><p>Cada cliente tem uma comanda que só fecha quando vira cobrança.</p></div>
+      <div class="postal entry" data-kind="idea"><span class="postmark">acade mia</span><span class="from">da academia</span><h4>Mensalidade com dia fixo</h4><p>Cliente com retainer tem cobrança repetida sem reabrir tudo.</p></div>
+      <div class="postal entry" data-kind="idea"><span class="postmark">roça</span><span class="from">da agricultura</span><h4>Safra e entressafra</h4><p>Mostrar meses fortes e fracos para planejar caixa.</p></div>
+      <div class="postal entry" data-kind="idea"><span class="postmark">advo cacia</span><span class="from">da advocacia</span><h4>Taxa de realização</h4><p>Horas faturáveis versus não faturáveis e taxa de realização (quanto do trabalhado virou dinheiro).</p></div>
+      <div class="postal entry" data-kind="idea"><span class="postmark">varejo</span><span class="from">do varejo</span><h4>Contas a receber por idade</h4><p>Padrão conhecido e fácil de entender.</p>
+        <div class="aging" role="img" aria-label="Faixas de idade: 0-30, 31-60 e 60+ dias"><span>0-30</span><span>31-60</span><span>60+</span></div></div>
+      <div class="postal entry" data-kind="idea"><span class="postmark">fitness</span><span class="from">dos apps de fitness</span><h4>Meta mensal</h4><p>Meta mensal de receita com barra de progresso.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 08 FAILURE ANALYSIS -->
+<section class="sheet" id="t08" aria-labelledby="h-t08">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 08</span>
+      <h2 id="h-t08">Failure Analysis</h2>
+      <span class="count"><b>7</b>ideias</span>
+      <p class="sub">Livro de ocorrências: cada falha provável registrada antes de acontecer, com o que ela exige ou o que ela esconde.</p>
+    </div>
+
+    <div class="incidents">
+      <div class="incident entry" data-kind="idea"><div class="hdr"><span>ocorrência 01</span><span>cadastro</span></div><p class="what">Clientes quase iguais (Acme e Acme Corp) duplicam o total.</p><div class="then"><b>exige</b>Cadastro único e mesclagem.</div></div>
+      <div class="incident entry" data-kind="idea"><div class="hdr"><span>ocorrência 02</span><span>quadro</span></div><p class="what">Mover tarefa cobrada de volta ao Backlog reabre o dinheiro.</p><div class="then"><b>exige</b>O status de cobrança deve ser independente da coluna.</div></div>
+      <div class="incident entry" data-kind="idea"><div class="hdr"><span>ocorrência 03</span><span>dados</span></div><p class="what">localStorage apagado perde o histórico de dinheiro.</p><div class="then"><b>exige</b>Exportar e importar JSON vira necessidade, não luxo.</div></div>
+      <div class="incident entry" data-kind="idea"><div class="hdr"><span>ocorrência 04</span><span>timer</span></div><p class="what">Timer esquecido ligado infla horas.</p><div class="then"><b>exige</b>Ajuste manual com justificativa.</div></div>
+      <div class="incident entry" data-kind="idea"><div class="hdr"><span>ocorrência 05</span><span>taxa</span></div><p class="what"><code>getTaskRate</code> devolve 0 sem cliente.</p><div class="then warn"><b>esconde</b>"R$ 0" parece correto mas esconde trabalho sem dono.</div></div>
+      <div class="incident entry" data-kind="idea"><div class="hdr"><span>ocorrência 06</span><span>taxa</span></div><p class="what">Mudar a taxa do cliente altera tudo que já foi feito.</p><div class="then"><b>exige</b>Cobrança passada tem de ficar imutável.</div></div>
+      <div class="incident entry" data-kind="idea"><div class="hdr"><span>ocorrência 07</span><span>dispositivos</span></div><p class="what">Dois dispositivos, dois localStorage.</p><div class="then warn"><b>esconde</b>Números divergentes sem o freelancer saber.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 09 CONSTRAINT MAPPING -->
+<section class="sheet" id="t09" aria-labelledby="h-t09">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 09</span>
+      <h2 id="h-t09">Constraint Mapping</h2>
+      <span class="count"><b>6</b>ideias</span>
+      <p class="sub">Três terrenos: o muro que existe, a miragem que se dissolve e a restrição que vira alavanca.</p>
+    </div>
+
+    <div class="cmap">
+      <div class="zone wall">
+        <h3>Muro</h3><span class="zsub">restrição real · 4</span>
+        <ul>
+          <li class="entry" data-kind="idea">Sem backend, o app não envia fatura por e-mail; a saída é gerar texto ou PDF para o freelancer mandar.</li>
+          <li class="entry" data-kind="idea">Dados só no navegador; feature de dinheiro precisa de exportação para ser confiável.</li>
+          <li class="entry" data-kind="idea"><code>loadState</code> faz merge raso; todo campo novo em <code>AppState</code> exige default em <code>getDefaultState</code>.</li>
+          <li class="entry" data-kind="idea">Relatório por período exige <code>timeEntries</code>, que hoje ninguém grava.</li>
+        </ul>
+      </div>
+      <div class="zone mirage">
+        <h3>Miragem</h3><span class="zsub">restrição imaginada · 1</span>
+        <ul><li class="entry" data-kind="idea"><span class="ghost">"Precisa ser sistema de faturamento completo."</span><br>Dissolver: um status por hora e um total por cliente já entregam valor.</li></ul>
+      </div>
+      <div class="zone lever">
+        <h3>Alavanca</h3><span class="zsub">restrição virando ativo · 1</span>
+        <ul><li class="entry" data-kind="idea">Sem backend, dado de cliente não vaza; privacidade pode ser diferencial.</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 10 TIME SHIFTING -->
+<section class="sheet" id="t10" aria-labelledby="h-t10">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 10</span>
+      <h2 id="h-t10">Time Shifting</h2>
+      <span class="count"><b>4</b>ideias</span>
+      <p class="sub">O mesmo problema visto de quatro pontos da linha do tempo. Fora de escala.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="tpoint entry" data-kind="idea"><span class="yr">1900</span><div class="card"><b>artesão</b>Caderneta de fiado por cliente, com data e valor; "caderneta por cliente" é o que falta.</div></div>
+      <div class="tpoint entry" data-kind="idea"><span class="yr">ontem</span><div class="card"><b>o próprio freelancer</b>Para cobrar, quero reconstruir a semana passada; preciso de histórico por dia, não só total.</div></div>
+      <div class="tpoint now"><span class="yr">hoje</span><div class="card">23/11/2026: o app guarda só o total acumulado.</div></div>
+      <div class="tpoint entry" data-kind="idea"><span class="yr">+1 ano</span><div class="card"><b>daqui a um ano</b>Quanto ganhei por hora real em cada cliente, descontando horas nunca cobradas.</div></div>
+      <div class="tpoint entry" data-kind="idea"><span class="yr">2150</span><div class="card"><b>colono</b>Dinheiro se resolve sozinho; o app só pergunta "este cliente já pagou?" quando algo foge do normal.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 11 WORST POSSIBLE IDEA -->
+<section class="sheet" id="t11" aria-labelledby="h-t11">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 11</span>
+      <h2 id="h-t11">Worst Possible Idea</h2>
+      <span class="count"><b>5</b>ideias</span>
+      <p class="sub">Papéis amassados: a pior ideia escrita sem vergonha, riscada, e o que sobrou dela de aproveitável.</p>
+    </div>
+
+    <div class="trash">
+      <div class="crumple entry" data-kind="idea"><div class="worst"><small>pior</small><span>Bloquear o quadro até cobrar.</span></div><div class="fix"><small>inverso</small>Lembrete suave quando há horas não cobradas além de X dias.</div></div>
+      <div class="crumple entry" data-kind="idea"><div class="worst huge"><small>pior</small><span>A receber em letras gigantes vermelhas.</span></div><div class="fix"><small>inverso</small>Cor neutra, ênfase só no vencido.</div></div>
+      <div class="crumple entry" data-kind="idea"><div class="worst"><small>pior</small><span>12 campos para cadastrar cliente.</span></div><div class="fix"><small>inverso</small>Nome e taxa; o resto aparece quando faz falta.</div></div>
+      <div class="crumple entry" data-kind="idea"><div class="worst"><small>pior</small><span>Misturar horas pessoais e de clientes no total.</span></div><div class="fix"><small>inverso</small>Separar não faturável e mostrar custo de oportunidade.</div></div>
+      <div class="crumple entry" data-kind="idea"><div class="worst"><small>pior</small><span>Apagar a cobrança junto com o cliente.</span></div><div class="fix"><small>inverso</small>Arquivar e manter o histórico financeiro.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 12 LADDERING -->
+<section class="sheet" id="t12" aria-labelledby="h-t12">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 12</span>
+      <h2 id="h-t12">Laddering</h2>
+      <span class="count"><b>4</b>ideias</span>
+      <p class="sub">Três escadas que começam numa feature e sobem, degrau a degrau, perguntando "e isso dá o quê?".</p>
+    </div>
+
+    <div class="ladders">
+      <div class="entry" data-kind="idea">
+        <div class="ladder-title">escada 1 · cadastrar clientes</div>
+        <ol class="ladder">
+          <li style="--i:0"><span class="ask">feature</span>Cadastrar clientes de verdade</li>
+          <li style="--i:1"><span class="ask">dá o quê?</span>Cliente além de Acme e TechStart</li>
+          <li style="--i:2"><span class="ask">e isso?</span>Um a receber real</li>
+          <li style="--i:3"><span class="ask">e isso?</span>Decisão de caixa</li>
+          <li style="--i:4"><span class="ask">e isso?</span>Tranquilidade para cobrar</li>
+        </ol>
+      </div>
+      <div class="entry" data-kind="idea">
+        <div class="ladder-title">escada 2 · a receber por cliente</div>
+        <ol class="ladder">
+          <li style="--i:0"><span class="ask">feature</span>Ver o a receber por cliente</li>
+          <li style="--i:1"><span class="ask">dá o quê?</span>Saber quem priorizar</li>
+          <li style="--i:2"><span class="ask">e isso?</span>Não depender de um só</li>
+          <li style="--i:3"><span class="ask">e isso?</span>Negociar taxa com dado na mão</li>
+        </ol>
+      </div>
+      <div class="entry" data-kind="idea">
+        <div class="ladder-title">escada 3 · marcar horas como cobradas</div>
+        <ol class="ladder">
+          <li style="--i:0"><span class="ask">feature</span>Marcar horas como cobradas</li>
+          <li style="--i:1"><span class="ask">dá o quê?</span>Zera o não cobrado</li>
+          <li style="--i:2"><span class="ask">e isso?</span>Para de perder horas no esquecimento</li>
+          <li style="--i:3"><span class="ask">e isso?</span>Receita que já era dele chega ao bolso</li>
+        </ol>
+      </div>
+      <div class="landing entry" data-kind="idea">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M4 44h10V34h10V24h10V14h10" fill="none" stroke="currentColor" stroke-width="3"/><circle cx="44" cy="8" r="4" fill="currentColor"/></svg>
+        <div><b>topo das três escadas · necessidade de fundo</b><p>Sentir que o trabalho feito virou dinheiro garantido, sem ter de lembrar sozinho.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 13 ZOMBIE APOCALYPSE -->
+<section class="sheet" id="t13" aria-labelledby="h-t13">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 13</span>
+      <h2 id="h-t13">Zombie Apocalypse</h2>
+      <span class="count"><b>3</b>ideias</span>
+      <p class="sub">Kit de sobrevivência: se tudo cair, sem backend nem nota fiscal, o que precisa continuar de pé.</p>
+    </div>
+
+    <div class="kit">
+      <div class="minimal entry" data-kind="idea">
+        <h3>o mínimo que sobrevive</h3>
+        <div class="fields">
+          <div><small>campo</small>cliente</div>
+          <div><small>campo</small>taxa</div>
+          <div><small>campo</small>hora</div>
+          <div><small>carimbo</small>cobrado em dd/mm</div>
+        </div>
+        <p>Sem backend nem nota fiscal, o mínimo que sobrevive é cliente, taxa, hora e um carimbo "cobrado em dd/mm".</p>
+      </div>
+      <div class="kit-side">
+        <div class="kit-item entry" data-kind="idea"><b>item de sobrevivência do dado</b>Sem exportação não há confiança: botão exportar JSON/CSV.</div>
+        <div class="kit-item entry" data-kind="idea"><b>sem tela nova</b>Um rótulo no cartão da tarefa (Cobrado / Pago) responde metade do problema sem navegação extra.
+          <div class="mini-task" aria-hidden="true">cartão de tarefa<div class="row"><span class="lbl-chip c">Cobrado</span><span class="lbl-chip p">Pago</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 14 ANTI-SOLUTION -->
+<section class="sheet" id="t14" aria-labelledby="h-t14">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 14</span>
+      <h2 id="h-t14">Anti-Solution</h2>
+      <span class="count"><b>5</b>ideias</span>
+      <p class="sub">Uma chave com duas posições. Ligue em "piorar" para ver o estrago; em "resolver" para ver o conserto.</p>
+    </div>
+
+    <div class="switcher">
+      <div class="seg" role="group" aria-label="Modo de leitura">
+        <button type="button" data-mode="worse" aria-pressed="false">piorar</button>
+        <button type="button" data-mode="both" aria-pressed="true">os dois</button>
+        <button type="button" data-mode="fix" aria-pressed="false">resolver</button>
+      </div>
+    </div>
+    <ul class="anti" id="anti" data-mode="both">
+      <li class="entry" data-kind="idea"><div class="w"><small>piorar</small>Esconder horas não cobradas no total.</div><span class="arrow" aria-hidden="true">→</span><div class="f"><small>resolver</small>Separar ganho, cobrado e recebido em três números.</div></li>
+      <li class="entry" data-kind="idea"><div class="w"><small>piorar</small>Não registrar quando a hora foi trabalhada.</div><span class="arrow" aria-hidden="true">→</span><div class="f"><small>resolver</small>Gravar <code>timeEntries</code> por sessão do timer.</div></li>
+      <li class="entry" data-kind="idea"><div class="w"><small>piorar</small>Cliente sem prazo de pagamento.</div><span class="arrow" aria-hidden="true">→</span><div class="f"><small>resolver</small>Dias de prazo no cadastro e vencimento calculado.</div></li>
+      <li class="entry" data-kind="idea"><div class="w"><small>piorar</small>Ocultar quem concentra a receita.</div><span class="arrow" aria-hidden="true">→</span><div class="f"><small>resolver</small>Participação percentual de cada cliente.</div></li>
+      <li class="entry" data-kind="idea"><div class="w"><small>piorar</small>Não avisar de tarefa concluída e não cobrada.</div><span class="arrow" aria-hidden="true">→</span><div class="f"><small>resolver</small>Fila "prontas para cobrar" com valor somado.</div></li>
+    </ul>
+  </div>
+</section>
+
+<!-- FL. 15 WHAT IF -->
+<section class="sheet" id="t15" aria-labelledby="h-t15">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 15</span>
+      <h2 id="h-t15">What If</h2>
+      <span class="count"><b>8</b>ideias</span>
+      <p class="sub">Oito vales "e se", cada um com seu canhoto. Ainda não valem nada; só viram dinheiro se forem validados.</p>
+    </div>
+
+    <div class="vouchers">
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>01</b></div><div class="body"><strong>E se</strong> o freelancer mandasse ao cliente um resumo de horas para aprovação? Sem backend, vira texto copiável ou PDF primeiro.</div></div>
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>02</b></div><div class="body"><strong>E se</strong> o app escrevesse a mensagem de cobrança pronta em português, com valor e período, para colar no WhatsApp ou e-mail?</div></div>
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>03</b></div><div class="body"><strong>E se</strong> houvesse "fechar o mês do cliente": congela horas e taxas num fechamento imutável?</div></div>
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>04</b></div><div class="body"><strong>E se</strong> o app sugerisse subir a taxa do cliente que consome mais horas que o previsto?</div></div>
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>05</b></div><div class="body"><strong>E se</strong> existisse termômetro de risco: quanto do a receber está atrasado e quanto depende de um só cliente?</div></div>
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>06</b></div><div class="body"><strong>E se</strong> o cliente tivesse projeto com teto de horas e a tarefa mostrasse o saldo restante?</div></div>
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>07</b></div><div class="body"><strong>E se</strong> desse para lançar adiantamento ou pagamento parcial e o saldo se calculasse sozinho?</div></div>
+      <div class="voucher entry" data-kind="idea"><div class="stub">vale<b>08</b></div><div class="body"><strong>E se</strong> o primeiro uso perguntasse "para quem você trabalha?" e criasse os clientes antes das tarefas?</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 16 PROVOCATION -->
+<section class="sheet" id="t16" aria-labelledby="h-t16">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 16</span>
+      <h2 id="h-t16">Provocation</h2>
+      <span class="count"><b>3</b>ideias</span>
+      <p class="sub">Três frases exageradas de propósito, e o princípio útil que se tira de cada uma.</p>
+    </div>
+
+    <div class="provs">
+      <div class="prov entry" data-kind="idea"><blockquote><span class="po">provocação</span>Ver só clientes e dinheiro, sem tarefas.</blockquote><div class="principle"><b>princípio útil</b>Modo financeiro que agrupa tudo por cliente ao lado do quadro.</div></div>
+      <div class="prov entry" data-kind="idea"><blockquote><span class="po">provocação</span>Dinheiro só existe depois de pago.</blockquote><div class="principle"><b>princípio útil</b>Mais peso visual ao recebido do que ao potencial.</div></div>
+      <div class="prov entry" data-kind="idea"><blockquote><span class="po">provocação</span>Cada cliente com nota de 0 a 10.</blockquote><div class="principle"><b>princípio útil</b>Indicador simples de saúde (paga em dia, estica escopo, rentável).</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 17 PERSONA JOURNEY -->
+<section class="sheet" id="t17" aria-labelledby="h-t17">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 17</span>
+      <h2 id="h-t17">Persona Journey</h2>
+      <span class="count"><b>4</b>ideias</span>
+      <p class="sub">Quatro crachás. Três entram na feature; um fica na porta.</p>
+    </div>
+
+    <div class="badges">
+      <article class="badge entry" data-kind="idea">
+        <div class="clip"></div>
+        <div class="head"><span class="av">M</span><div><h3>Marina</h3><span class="role">designer · 4 clientes</span></div></div>
+        <div class="body">
+          <b>rotina</b>Fecha o mês no dia 28 e esquece horas das últimas semanas.
+          <div class="cal" aria-hidden="true"><span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span>27</span><span class="hit">28</span></div>
+          <b>precisa de</b>"O que não cobrei desde o último fechamento."
+        </div>
+      </article>
+      <article class="badge entry" data-kind="idea">
+        <div class="clip"></div>
+        <div class="head"><span class="av">R</span><div><h3>Rafael</h3><span class="role">dev · 1 cliente grande e 2 pequenos</span></div></div>
+        <div class="body">
+          <b>medo</b>Perder o grande.
+          <div class="dots-conc" aria-hidden="true"><i class="big"></i><i class="sm"></i><i class="sm"></i></div>
+          <b>precisa de</b>Ver a concentração de receita.
+        </div>
+      </article>
+      <article class="badge entry" data-kind="idea">
+        <div class="clip"></div>
+        <div class="head"><span class="av">B</span><div><h3>Bruno</h3><span class="role">consultor · retainer mensal</span></div></div>
+        <div class="body">
+          <b>quer</b>Cobrança recorrente e abatimento de horas do pacote.
+          <div class="pack" aria-hidden="true"><span class="used"></span><span class="used"></span><span class="used"></span><span></span><span></span><span></span></div>
+        </div>
+      </article>
+      <article class="badge out entry" data-kind="idea">
+        <div class="clip"></div>
+        <span class="stamp">fora do escopo</span>
+        <div class="head"><span class="av">C</span><div><h3>Camila</h3><span class="role">redatora · cobra por palavra</span></div></div>
+        <div class="body">
+          <b>precisa de</b>Outra unidade além de horas.
+          <b>por que fica de fora</b>O foco é cobrança por hora.
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FL. 18 SOLUTION MATRIX -->
+<section class="sheet" id="t18" aria-labelledby="h-t18">
+  <div class="wrap">
+    <div class="sheet-head">
+      <span class="tab">fl. 18</span>
+      <h2 id="h-t18">Solution Matrix</h2>
+      <span class="count"><b>2</b>achados</span>
+      <p class="sub">A balança final: cinco candidatas na régua de esforço, e a cadeia que mostra quem precisa vir antes de quem.</p>
+    </div>
+
+    <div class="matrix entry" data-kind="insight" role="group" aria-label="Matriz valor por esforço">
+      <div class="col low">
+        <h3>esforço baixo</h3>
+        <div class="chip"><span class="num">1</span><h4>Cadastro de clientes na UI</h4><p>valor: <b>destrava tudo</b></p></div>
+      </div>
+      <div class="col mid">
+        <h3>esforço médio</h3>
+        <div class="chip"><span class="num">2</span><h4>Status de cobrança por hora ou tarefa</h4><p>valor: <b>responde o goal</b></p></div>
+        <div class="chip"><span class="num">3</span><h4><code>timeEntries</code> por sessão</h4><p>valor: <b>destrava período e vencimento</b></p></div>
+        <div class="chip"><span class="num">4</span><h4>Mensagem de cobrança pronta</h4><p>valor: <b>baixa o custo de cobrar</b></p></div>
+      </div>
+      <div class="col high">
+        <h3>esforço alto</h3>
+        <div class="chip"><span class="num">5</span><h4>Previsão e risco</h4><p>valor: <b>depende de 1 a 3</b></p></div>
+      </div>
+    </div>
+    <div class="axis" aria-hidden="true"><span>esforço</span><i></i></div>
+    <p class="caption">O log classifica o esforço em três níveis e descreve o valor em palavras; por isso o valor aparece escrito em cada item, e não como posição no eixo.</p>
+
+    <div class="chain entry" data-kind="insight">
+      <h3>Dependência encadeada</h3>
+      <p class="lead">Cliente real antes de qualquer visão de dinheiro.</p>
+      <div class="chain-grid">
+        <div class="node n-a"><span class="num">1</span>Cliente real<small>cadastro de clientes na UI</small></div>
+        <svg class="arr arr1" viewBox="0 0 200 54" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M100 2 C100 28 50 24 50 46" vector-effect="non-scaling-stroke"/><path d="M100 2 C100 28 150 24 150 46" vector-effect="non-scaling-stroke"/>
+          <polygon points="46,44 54,44 50,52"/><polygon points="146,44 154,44 150,52"/>
+        </svg>
+        <div class="node n-b"><span class="num">2</span>Status de cobrança<small>sem status não há "não cobrado"</small></div>
+        <div class="node n-c"><span class="num">3</span>Histórico por data<small>sem histórico por data não há "vencido"</small></div>
+        <svg class="arr arr2" viewBox="0 0 200 54" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M50 2 C50 28 100 24 100 46" vector-effect="non-scaling-stroke"/><path d="M150 2 C150 28 100 24 100 46" vector-effect="non-scaling-stroke"/>
+          <polygon points="96,44 104,44 100,52"/>
+        </svg>
+        <div class="node n-d"><span class="num">5</span>Previsão e risco<small>depende de 1 a 3</small></div>
+        <div class="node n-side"><span class="num">4</span>Mensagem de cobrança pronta<small>baixa o custo de cobrar; o log não declara dependência para ela</small></div>
+      </div>
+      <div class="blocks">
+        <div>sem cliente real: nenhuma visão de dinheiro</div>
+        <div>sem status: não há "não cobrado"</div>
+        <div>sem histórico por data: não há "vencido"</div>
+        <div>sem 1 a 3: não há previsão nem risco</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FECHAMENTO -->
+<section class="closing" id="fechamento" aria-labelledby="h-fech">
+  <div class="wrap">
+    <div class="kicker"><span>fechamento do caixa</span><span>síntese</span></div>
+    <h2 id="h-fech">Hoje o app mistura três coisas num número só.</h2>
+    <p class="lede">Depois de 18 técnicas e 98 ideias, o diagnóstico cabe em duas frases, e a primeira aposta é separar o que foi trabalhado, o que foi cobrado e o que foi recebido, cliente por cliente.</p>
+
+    <div class="diagnosis">
+      <div class="diag entry" data-kind="insight"><b>o problema de dinheiro mais valioso e barato</b><p>Separar trabalhado, cobrado e recebido, por cliente. Hoje o app mistura os três num número só.</p></div>
+      <div class="diag entry" data-kind="insight"><b>o problema de cliente mais valioso</b><p>O cliente não existe de verdade no produto (seed fixo, sem UI); sem isso quem atende vários clientes não usa feature de dinheiro nenhuma.</p></div>
+    </div>
+
+    <article class="decision entry" data-kind="decision" aria-labelledby="h-dec">
+      <span class="stamp green">decidido</span>
+      <span class="eyebrow">direção recomendada · primeira aposta</span>
+      <h3 id="h-dec">Carteira por cliente</h3>
+      <p class="what">Cadastro de clientes + total por cliente em três estados.</p>
+      <div class="wallet">
+        <div class="st a"><span class="ord">estado 1</span><h4>A cobrar</h4><p>trabalhado e ainda não cobrado</p></div>
+        <div class="st b"><span class="ord">estado 2</span><h4>Cobrado</h4><p>cobrança feita, dinheiro em aberto</p></div>
+        <div class="st c"><span class="ord">estado 3</span><h4>Recebido</h4><p>o dinheiro chegou</p></div>
+      </div>
+      <div class="fine"><span>cadastro de clientes</span><span>só localStorage</span><span>sem fatura formal</span></div>
+    </article>
+
+    <div class="second entry" data-kind="direction">
+      <div class="connector">depois</div>
+      <div class="card2">
+        <span class="eyebrow">segunda aposta</span>
+        <h3>Fechamento do mês</h3>
+        <p>Por cliente: congela taxas e horas e gera texto de cobrança pronto.</p>
+        <div class="deps"><span>depende da Carteira por cliente</span><span>depende de timeEntries</span></div>
+      </div>
+    </div>
+
+    <div class="final-grid">
+      <div class="entry" data-kind="question">
+        <h3>A validar antes de construir</h3>
+        <ul class="checks">
+          <li><label><input type="checkbox"><span>Como o freelancer define "cobrado"?</span></label></li>
+          <li><label><input type="checkbox"><span>O ciclo varia por cliente?</span></label></li>
+          <li><label><input type="checkbox"><span>Aceita registrar pagamento à mão?</span></label></li>
+          <li><label><input type="checkbox"><span>Perder dados do navegador é aceitável?</span></label></li>
+        </ul>
+        <p class="hint">Marque conforme validar. Nada é salvo; a lista volta limpa ao recarregar.</p>
+      </div>
+      <div class="entry" data-kind="direction">
+        <h3>Fora de escopo por ora</h3>
+        <div class="outscope">
+          <ul>
+            <li>nota fiscal</li>
+            <li>envio de e-mail</li>
+            <li>multi-moeda</li>
+            <li>integração bancária</li>
+            <li>sincronização entre dispositivos</li>
+          </ul>
+          <p>Exigem backend ou decisão de produto à parte.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sources">
+      <span>Fonte única: .memlog.md da sessão, atualizado em 23/11/2026 16:31</span>
+      <span>Nenhuma ideia ou número foi acrescentado ao log</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+(function(){
+  var body=document.body;
+  body.classList.remove('no-js'); body.classList.add('js');
+
+  /* tema */
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  var modes=['auto','light','dark'], names={auto:'automático',light:'claro',dark:'escuro'}, i=0;
+  function applyTheme(){
+    var m=modes[i];
+    if(m==='auto'){root.removeAttribute('data-theme')}else{root.setAttribute('data-theme',m)}
+    btn.textContent='Tema: '+names[m];
+  }
+  btn.addEventListener('click',function(){i=(i+1)%modes.length; applyTheme()});
+  applyTheme();
+
+  /* SCAMPER: teclas da registradora */
+  var keys=[].slice.call(document.querySelectorAll('.key'));
+  var panels=keys.map(function(k){return document.getElementById(k.getAttribute('aria-controls'))});
+  function select(idx,focus){
+    keys.forEach(function(k,j){
+      var on=j===idx;
+      k.setAttribute('aria-selected',on?'true':'false');
+      k.tabIndex=on?0:-1;
+      panels[j].hidden=!on;
+    });
+    if(focus) keys[idx].focus();
+  }
+  keys.forEach(function(k,j){
+    k.addEventListener('click',function(){select(j,false)});
+    k.addEventListener('keydown',function(e){
+      var n=keys.length, t=null;
+      if(e.key==='ArrowRight'||e.key==='ArrowDown') t=(j+1)%n;
+      else if(e.key==='ArrowLeft'||e.key==='ArrowUp') t=(j-1+n)%n;
+      else if(e.key==='Home') t=0;
+      else if(e.key==='End') t=n-1;
+      if(t!==null){e.preventDefault(); select(t,true)}
+    });
+  });
+  select(0,false);
+
+  /* Anti-Solution: chave piorar / resolver */
+  var anti=document.getElementById('anti');
+  var segs=[].slice.call(document.querySelectorAll('.seg button'));
+  segs.forEach(function(b){
+    b.addEventListener('click',function(){
+      anti.setAttribute('data-mode',b.getAttribute('data-mode'));
+      segs.forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+    });
+  });
+})();
+</script>
+</body>
+</html>
