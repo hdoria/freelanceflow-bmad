@@ -1,6 +1,6 @@
 ---
 title: Aviso ao cliente por e-mail
-status: draft
+status: final
 created: 2026-11-24
 updated: 2026-11-24
 ---
@@ -37,16 +37,16 @@ Esta é a primeira peça de um ciclo maior (revisão, aprovação pelo cliente, 
 ### 2.3 Jornadas principais
 
 - **UJ-1. Rafaela avisa o cliente sem escrever uma linha.**
-  Rafaela é designer, atende 4 clientes e usa o FreelanceFlow no notebook. Ela termina o layout da página inicial do cliente Padaria Sol e arrasta o cartão para "Review". Aparece no canto: "Aviso para Padaria Sol sai em 60s. Desfazer". Ela não faz nada. Um minuto depois, o dono da padaria recebe um e-mail: "Rafaela moveu 'Layout da página inicial' para Review". No cartão, Rafaela vê "Aviso enviado às 14:02". **Caso de borda:** se ela tivesse arrastado para a coluna errada, clicaria em "Desfazer" e nenhum e-mail sairia.
+  Rafaela é designer, atende 4 clientes e usa o FreelanceFlow no notebook. Ela termina o layout da página inicial do cliente Padaria Sol e arrasta o cartão para "Review". Aparece no canto: "Aviso para Padaria Sol sai em 2 min. Desfazer". Ela não faz nada. Uns dois minutos depois, o dono da padaria recebe um e-mail: "Rafaela moveu 'Layout da página inicial' para Review". No cartão, Rafaela vê "Aviso enviado às 14:02". Se nesse meio-tempo ela tivesse movido outro cartão da Padaria Sol, os dois iriam no mesmo e-mail. **Caso de borda:** se ela tivesse arrastado para a coluna errada, clicaria em "Desfazer" e nenhum e-mail sairia.
 
 - **UJ-2. Rafaela ativa o aviso pela primeira vez.**
-  Rafaela vê o convite "Avisar seus clientes por e-mail quando um cartão chega em Review ou Done?" e clica em ativar. Como o envio automático precisa saber quem ela é, o app pede o e-mail dela e manda um link de acesso. Ela confirma pelo link. As colunas "Review" e "Done" ficam marcadas como públicas. Na próxima vez que mover um cartão de um cliente sem e-mail cadastrado, o app pede o e-mail do cliente ali mesmo, com a opção de pular.
+  Na Fase 1, Rafaela vê o convite "Avisar seus clientes por e-mail quando um cartão chega em Review ou Done?" e clica em ativar. Como o envio automático precisa saber quem ela é, o app pede o nome e o e-mail dela e manda um link de acesso. Ela confirma pelo link. As colunas "Review" e "Done" ficam marcadas como públicas. Na próxima vez que mover um cartão de um cliente sem e-mail cadastrado, o app pede o e-mail do cliente ali mesmo, com a opção de pular.
 
 - **UJ-3. Cliente pede para não receber mais.**
   O cliente Marcos acha que recebe e-mails demais. No rodapé do aviso ele clica em "Não quero mais receber avisos de Rafaela". A partir daí nenhum aviso sai para ele, e no cadastro do cliente Rafaela vê "Marcos pediu para não receber avisos".
 
 - **UJ-4. Rafaela testa a ideia antes do envio automático existir (Fase 0).**
-  Na Fase 0 não há envio automático. Quando Rafaela arrasta o cartão para "Review", aparece "Avisar Padaria Sol por e-mail?". Ela clica e o programa de e-mail dela abre com destinatário, assunto e texto já preenchidos. Ela revisa e envia ela mesma.
+  Na Fase 0 não há envio automático nem conta. Rafaela liga "Avisar clientes por e-mail" nas configurações e confirma as colunas sugeridas. Quando ela arrasta o cartão para "Review", aparece "Avisar Padaria Sol por e-mail?". Ela clica e o programa de e-mail dela abre com destinatário, assunto e texto já preenchidos. Ela revisa e envia ela mesma.
 
 ## 3. Glossário
 
@@ -56,8 +56,8 @@ Esta é a primeira peça de um ciclo maior (revisão, aprovação pelo cliente, 
 - **Cartão:** uma tarefa no quadro (entidade `Task`).
 - **Coluna pública:** coluna que o freelancer marcou para gerar Aviso quando um Cartão entra nela. Toda coluna é pública ou não pública.
 - **Aviso:** e-mail enviado ao Cliente informando que um ou mais Cartões dele entraram numa Coluna pública.
-- **Janela de desfazer:** intervalo de 60 segundos entre o movimento do Cartão e o início do envio, durante o qual o freelancer pode cancelar o Aviso.
-- **Agrupamento:** regra que junta num único Aviso os movimentos de Cartões do mesmo Cliente feitos dentro de 10 minutos.
+- **Janela de espera:** tempo entre o último movimento de Cartões de um Cliente e o envio do Aviso: 2 minutos, reiniciados a cada novo movimento do mesmo Cliente, com teto de 10 minutos desde o primeiro. Durante a janela, o Freelancer pode desfazer qualquer Cartão. `[ASSUMPTION: valores de 2 e 10 minutos definidos no caminho rápido, sem dado de uso.]`
+- **Agrupamento:** todos os Cartões do mesmo Cliente que estão na Janela de espera saem num único Aviso.
 - **Registro de envio:** estado do Aviso visível no Cartão: pendente, enviado, cancelado ou falhou.
 - **Descadastro:** pedido do Cliente para não receber mais Avisos daquele Freelancer.
 - **Conta de envio:** identificação mínima do Freelancer (e-mail confirmado por link) exigida apenas para o envio automático.
@@ -95,15 +95,16 @@ O Freelancer pode marcar e desmarcar qualquer coluna como Coluna pública.
 - Colunas públicas têm um indicador visual no quadro.
 
 #### FR-4: Ativação com um clique
-Ao ativar o Aviso ao cliente, as colunas que nasceram como "Review" e "Done" no quadro inicial viram públicas automaticamente. `[ASSUMPTION: o padrão segue a coluna, não o nome; se o Freelancer já renomeou essas colunas, o padrão continua valendo para elas.]`
+O Freelancer ativa o Aviso ao cliente nas configurações. Na ativação, o app sugere como públicas as colunas chamadas "Review" ou "Done" (ou "Em revisão" ou "Concluído") e pede confirmação. Vale nas duas fases: na Fase 0 a ativação não exige conta; na Fase 1 o envio automático exige também o FR-12.
 
 **Consequências (testáveis):**
-- Depois da ativação, o Freelancer vê quais colunas ficaram públicas e pode mudar.
-- Se essas colunas não existirem mais, nenhuma coluna fica pública e o app pede para escolher.
+- Nenhuma coluna vira pública sem o Freelancer confirmar.
+- Se nenhuma coluna tiver esses nomes, o app pede para escolher.
+- Depois da ativação, o Freelancer pode mudar as colunas públicas a qualquer momento (FR-3).
 
 ### 4.3 Envio do aviso
 
-**Descrição:** quando um Cartão com Cliente entra numa Coluna pública, nasce um Aviso pendente. Ele espera a Janela de desfazer, é agrupado com outros movimentos do mesmo Cliente e então é enviado. Realiza UJ-1.
+**Descrição:** quando um Cartão com Cliente entra numa Coluna pública, nasce um Aviso pendente. Ele espera a Janela de espera, junta os outros Cartões do mesmo Cliente movidos nesse tempo e então é enviado. Realiza UJ-1.
 
 #### FR-5: Gerar aviso
 Um Cartão que entra numa Coluna pública gera um Aviso pendente quando tem Cliente, o Cliente tem E-mail e o Cliente não fez Descadastro.
@@ -113,22 +114,25 @@ Um Cartão que entra numa Coluna pública gera um Aviso pendente quando tem Clie
 - Reordenar Cartões dentro da mesma coluna não gera Aviso.
 - Cartão sem Cliente não gera Aviso.
 
-#### FR-6: Janela de desfazer
-Durante 60 segundos depois do movimento, o Freelancer vê "Aviso para {Cliente} sai em 60s. Desfazer" e pode cancelar. Realiza UJ-1.
+#### FR-6: Desfazer
+Depois de cada movimento que gera Aviso, o Freelancer vê "Aviso para {Cliente} sai em 2 min. Desfazer". Desfazer retira só aquele Cartão do Aviso. Realiza UJ-1.
 
 **Consequências (testáveis):**
-- Clicar em Desfazer cancela o Aviso e o Registro de envio mostra "cancelado".
-- Mover o Cartão de volta para uma coluna não pública dentro da janela cancela o Aviso daquele Cartão.
+- Desfazer o único Cartão de um Aviso cancela o Aviso, e o Registro de envio do Cartão mostra "cancelado".
+- Desfazer um Cartão de um Aviso com três Cartões deixa os outros dois no Aviso.
+- Mover o Cartão de volta para uma coluna não pública dentro da Janela de espera tem o mesmo efeito de Desfazer.
+- Fechar a aba durante a Janela de espera não cancela nem impede o Aviso.
 
 #### FR-7: Agrupamento
-Movimentos de Cartões do mesmo Cliente feitos dentro de 10 minutos viram um único Aviso, com o estado final de cada Cartão.
+Cartões do mesmo Cliente movidos para Colunas públicas durante a Janela de espera saem num único Aviso, com o estado final de cada Cartão.
 
 **Consequências (testáveis):**
-- Três Cartões do mesmo Cliente movidos para "Review" em 5 minutos geram um e-mail com os três.
-- Um Cartão que entrou e saiu de Coluna pública dentro dos 10 minutos não aparece no Aviso.
+- Três Cartões do mesmo Cliente movidos para "Review" com 1 minuto de intervalo geram um e-mail com os três, cerca de 2 minutos depois do último movimento.
+- Movimentos contínuos não seguram o Aviso por mais de 10 minutos desde o primeiro.
+- Um Cartão que entrou e saiu de Coluna pública dentro da janela não aparece no Aviso.
 
 #### FR-8: Conteúdo do aviso
-O Aviso traz o nome do Freelancer, o título de cada Cartão e a coluna para onde ele foi. A resposta ao e-mail vai para o e-mail do Freelancer. `[ASSUMPTION: o Aviso sai no idioma do app do Freelancer, pt ou en.]`
+O Aviso traz o nome do Freelancer (informado no FR-12), o título de cada Cartão e a coluna para onde ele foi. A resposta ao e-mail vai para o e-mail do Freelancer. `[ASSUMPTION: o Aviso sai no idioma do app do Freelancer, pt ou en.]`
 
 **Consequências (testáveis):**
 - O Aviso não mostra horas, valores, descrição do Cartão nem colunas não públicas.
@@ -151,8 +155,12 @@ Um mesmo movimento nunca gera dois Avisos, mesmo que o Freelancer use o app em d
 #### FR-10: Registro de envio no cartão
 Cada Cartão mostra o Registro de envio do último Aviso: pendente, enviado (com horário), cancelado ou falhou.
 
+O estado "pendente" é conhecido pelo navegador; "enviado", "falhou" e o Descadastro são conhecidos só pelo serviço de envio, então o app busca esses estados no serviço.
+
 **Consequências (testáveis):**
 - Um Aviso que falhou mostra o motivo em linguagem simples (por exemplo, "e-mail do cliente inválido").
+- Ao abrir o app, e a cada 5 minutos com o app aberto, o Registro de envio e o status de Descadastro dos Clientes são atualizados a partir do serviço. `[ASSUMPTION]`
+- Sem internet, o Registro de envio mostra o último estado conhecido e a hora da última atualização.
 
 #### FR-11: Descadastro em um clique
 Todo Aviso tem no rodapé um link para o Cliente parar de receber Avisos daquele Freelancer, sem login. Realiza UJ-3.
@@ -167,7 +175,7 @@ Todo Aviso tem no rodapé um link para o Cliente parar de receber Avisos daquele
 **Descrição:** o envio automático acontece fora do navegador, então o serviço precisa saber de quem é cada Aviso. Quem não ativa o Aviso ao cliente continua usando o FreelanceFlow sem conta, como hoje. Realiza UJ-2.
 
 #### FR-12: Ativar com conta mínima
-Para ativar o envio automático, o Freelancer informa o próprio e-mail e confirma por um link de acesso. `[ASSUMPTION: login só por link no e-mail, sem senha.]`
+Para ativar o envio automático, o Freelancer informa o próprio nome e e-mail e confirma por um link de acesso. `[ASSUMPTION: login só por link no e-mail, sem senha.]`
 
 **Consequências (testáveis):**
 - Sem confirmar o link, nenhum Aviso automático é enviado.
@@ -189,13 +197,21 @@ O app conta, no próprio navegador, quantas vezes o Freelancer usou "Avisar por 
 
 ## 5. Requisitos não funcionais
 
-- **NFR-1, prazo de entrega:** o Aviso é entregue ao provedor de e-mail em até 2 minutos depois do fim da Janela de desfazer e do Agrupamento.
-- **NFR-2, dados mínimos:** só saem do navegador o título do Cartão, o nome da coluna, o nome e o E-mail do cliente, o nome e o e-mail do Freelancer e o identificador do movimento. Horas, valores e descrições nunca saem.
+- **NFR-1, prazo de entrega:** o Aviso é entregue ao provedor de e-mail em até 2 minutos depois do fim da Janela de espera.
+- **NFR-2, dados mínimos:** só saem do navegador o título do Cartão, o nome da coluna, o nome e o E-mail do cliente, o nome e o e-mail do Freelancer e o identificador do movimento. Horas, valores e descrições nunca saem. O serviço guarda o E-mail do cliente e o status de Descadastro enquanto o Freelancer tiver o Aviso ativo.
 - **NFR-3, app sem conta continua igual:** quem não ativa o Aviso ao cliente não percebe mudança de desempenho nem precisa de internet para usar o quadro.
 - **NFR-4, entregabilidade:** Avisos saem de domínio com autenticação de e-mail configurada para reduzir a chance de cair em spam.
 - **NFR-5, privacidade (LGPD):** o E-mail do cliente é usado só para Avisos; Descadastro é respeitado em até 1 minuto; o Freelancer pode apagar o e-mail do Cliente a qualquer momento, e isso remove o dado do serviço de envio.
 
-## 6. Fora dos objetivos
+## 6. Decisão de produto: o FreelanceFlow passa a operar um serviço
+
+Até hoje o FreelanceFlow roda inteiro no navegador, sem conta, sem servidor e sem custo de operação. A Fase 1 muda isso para quem ativar o envio automático: passa a existir conta, servidor, custo por e-mail e dado de terceiros (o E-mail do cliente) guardado fora do navegador.
+
+- **Decisão:** o dono do produto opera o serviço e paga o custo durante a validação com o grupo de teste. Preço ou limite de plano gratuito se decide antes de abrir a Fase 1 para além desse grupo. `[ASSUMPTION: assumido no caminho rápido; confirmar com o dono do produto.]`
+- **Papéis na LGPD:** o Freelancer é o controlador do E-mail do cliente; o FreelanceFlow atua como operador, usando o dado só para enviar Avisos.
+- **O que não muda:** quem não ativa o envio automático continua sem conta e com tudo no navegador (NFR-3).
+
+## 6.1 Fora dos objetivos
 
 - O FreelanceFlow não vira ferramenta de e-mail marketing nem de comunicação geral com clientes.
 - O cliente não ganha acesso ao app nem a uma página de status nesta versão.
@@ -222,7 +238,7 @@ O app conta, no próprio navegador, quantas vezes o Freelancer usou "Avisar por 
 
 **Primária**
 - **SM-1:** freelancers que usam "Avisar por e-mail" pelo menos 2 vezes por semana durante 3 semanas seguidas na Fase 0. Meta: 3 de 5 freelancers de teste. É o critério para começar a Fase 1. Valida FR-13.
-- **SM-2:** entre os freelancers ativos na Fase 1, a parcela que ativa o Aviso ao cliente. Meta: 30% em 60 dias. Valida FR-4, FR-12.
+- **SM-2:** entre os freelancers convidados para a Fase 1 (o grupo de teste, contado à mão), a parcela que confirma a Conta de envio e envia pelo menos um Aviso. Meta: 60% em 30 dias. `[ASSUMPTION]` Valida FR-4, FR-12.
 
 **Secundária**
 - **SM-3:** Avisos enviados por semana por freelancer que ativou. Indica uso recorrente. Valida FR-5 a FR-8.
@@ -231,11 +247,11 @@ O app conta, no próprio navegador, quantas vezes o Freelancer usou "Avisar por 
 **Contramétricas (não otimizar)**
 - **SM-C1:** volume total de e-mails enviados. Mais e-mail não é melhor; o Agrupamento existe para reduzir. Contrabalança SM-3.
 - **SM-C2:** taxa de Descadastro. Acima de 5% dos Clientes indica que o Aviso virou ruído. Contrabalança SM-2 e SM-3.
-- **SM-C3:** taxa de Desfazer. Acima de 15% indica que o gatilho está disparando em movimentos que não deveriam avisar. Contrabalança SM-3.
+- **SM-C3:** taxa de Desfazer, medida no serviço de envio (Cartões retirados de Avisos sobre o total de Cartões que geraram Aviso). Acima de 15% indica que o gatilho está disparando em movimentos que não deveriam avisar. Contrabalança SM-3.
 
 ## 9. Perguntas em aberto
 
-1. Como o app passa a ter um serviço de envio sem perder a simplicidade de guardar tudo no navegador? Só os eventos de movimento vão ao servidor, ou o estado inteiro é sincronizado? (Arquitetura; bloqueia a Fase 1, não a Fase 0.)
+1. Como o app passa a ter um serviço de envio sem perder a simplicidade de guardar tudo no navegador? Só os eventos de movimento vão ao servidor, ou o estado inteiro é sincronizado? Como o app recebe de volta o Registro de envio e o Descadastro (FR-10, FR-11)? (Arquitetura; bloqueia a Fase 1, não a Fase 0.)
 2. Qual provedor de e-mail transacional e de qual domínio os Avisos saem?
 3. Qual o limite de Avisos no plano gratuito, se houver plano pago?
 4. Quem são os 5 freelancers de teste da Fase 0 e como coletamos o número de SM-1?
@@ -249,4 +265,8 @@ O app conta, no próprio navegador, quantas vezes o Freelancer usou "Avisar por 
 - §4.5 FR-12: Conta de envio usa login por link no e-mail, sem senha.
 - §4.6 FR-14: Fase 0 não tem telemetria; medição depende do Freelancer de teste.
 - Geral: o destinatário do Aviso é o Cliente, não o próprio Freelancer (o pedido original dizia "ele").
+- §3: Janela de espera de 2 minutos com teto de 10 minutos.
+- §4.4 FR-10: atualização do Registro de envio ao abrir o app e a cada 5 minutos.
+- §6: o dono do produto opera e paga o serviço durante a validação.
+- §8: metas numéricas de SM-1 a SM-C3 foram definidas no caminho rápido, sem dado de uso.
 - Geral: base legal LGPD é o legítimo interesse do Freelancer em informar o próprio Cliente, com Descadastro em um clique.
