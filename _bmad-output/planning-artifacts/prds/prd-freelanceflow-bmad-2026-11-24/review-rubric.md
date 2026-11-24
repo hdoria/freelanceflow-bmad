@@ -1,0 +1,71 @@
+# Revisão de qualidade do PRD: Aviso ao cliente por e-mail
+
+## Veredito geral
+O PRD tem tese clara (validar a demanda com um `mailto:` barato na Fase 0 antes de construir envio automático), escopo honesto em fases, contramétricas reais e quase nada de enfeite. O risco está na Fase 1: a promessa de tempo do UJ-1 contradiz o Agrupamento de 10 minutos, vários FRs dependem de um retorno do servidor para o navegador que o PRD não reconhece, e a decisão de fato mais pesada (um app sem backend passar a operar servidor, contas e dados de terceiros) aparece só como pergunta de arquitetura. A Fase 0 está quase pronta para histórias; a Fase 1 precisa de uma rodada de revisão antes.
+
+## Prontidão para decisão (decision-readiness): adequada
+As perguntas em aberto de §9 são de verdade, e a 1 diz o que bloqueia ("bloqueia a Fase 1, não a Fase 0"), o que ajuda quem decide. O corte entre Fase 0 e Fase 1 com critério explícito em SM-1 ("É o critério para começar a Fase 1") é uma decisão tomada como decisão. §7.3 explica por que cada item ficou fora.
+
+O que falta é nomear o que se abre mão. O FreelanceFlow hoje é "sem backend: todos os dados ficam em localStorage"; a Fase 1 introduz servidor, Conta de envio, fila agendada, provedor de e-mail pago e o papel de operador de dados pessoais de terceiros (LGPD). O PRD trata isso como "Como o app passa a ter um serviço de envio sem perder a simplicidade..." (§9, pergunta 1), ou seja, como detalhe de arquitetura, quando é a principal escolha de produto do documento, com custo recorrente e responsabilidade operacional. A pergunta 3 ("Qual o limite de Avisos no plano gratuito, se houver plano pago?") deixa entrever que ninguém decidiu quem paga o envio. O único `[NOTE FOR PM]` (§7.3, resumo diário) está num ponto seguro; as tensões reais (abaixo) não têm nota.
+
+### Findings
+- **high** Mudança de natureza do produto não aparece como trade-off (§1, §4.5, §9 pergunta 1 e 3) — A Fase 1 transforma um app local em serviço hospedado com contas, custos e obrigações de operador de dados, e o PRD não registra essa decisão nem o que se perde (simplicidade, custo zero, ausência de dados em servidor). *Fix:* adicionar em §1 ou §7.2 um parágrafo de decisão: quem opera e paga o serviço, o que muda para o produto, e um `[NOTE FOR PM]` sobre custo e modelo (gratuito com limite, pago, ou só para validação).
+- **medium** Tensões reais sem `[NOTE FOR PM]` (§4.3 FR-6/FR-7, addendum "Janela de desfazer") — O addendum identifica que fechar a aba dentro da Janela de desfazer pode perder o Aviso e propõe duas opções, mas o PRD não diz qual comportamento o usuário deve ver. Isso é decisão de produto (o Aviso pode ou não se perder?), não só de arquitetura. *Fix:* declarar a garantia esperada em FR-6 ("o Aviso sai mesmo que a aba seja fechada" ou "pode não sair, e o Registro de envio mostra isso") e marcar com `[NOTE FOR PM]`.
+
+## Substância acima de teatro: forte
+Não há personas decorativas: Rafaela aparece nas jornadas e cada jornada sustenta FRs específicos. Os JTBD de §2.1 são curtos e o emocional ("esqueci de avisar o cliente que já está pronto?") é concreto. Os NFRs têm limites próprios do produto: "até 2 minutos" (NFR-1), lista fechada de campos que saem do navegador (NFR-2), "Descadastro é respeitado em até 1 minuto" (NFR-5). A Visão em §1 é específica deste produto e não trocaria com outro PRD da categoria.
+
+### Findings
+- **low** Dois NFRs ainda em adjetivo (§5 NFR-3, NFR-4) — "não percebe mudança de desempenho" e "autenticação de e-mail configurada para reduzir a chance de cair em spam" não têm limite verificável. *Fix:* NFR-3 com critério testável (por exemplo, o quadro abre e funciona sem rede e sem chamadas ao serviço quando o Aviso não está ativo); NFR-4 nomeando SPF, DKIM e DMARC como obrigatórios e ligando ao alvo de SM-4.
+
+## Coerência estratégica: adequada
+A tese é explícita: o aviso é a primeira peça do ciclo revisão, aprovação, fatura (§1), e a Fase 0 testa se freelancers querem avisar clientes antes de qualquer servidor. A priorização segue a tese e não a facilidade. As contramétricas são boas e ligadas a métricas específicas (SM-C2 e SM-C3 com limiares e "Contrabalança SM-3").
+
+O ponto fraco é a medição. O app não tem telemetria, e o PRD reconhece isso só para a Fase 0 (FR-14). Na Fase 1, SM-2 ("entre os freelancers ativos na Fase 1, a parcela que ativa") exige conhecer o denominador de freelancers ativos, que são justamente os que não têm conta e não aparecem em lugar nenhum. SM-C3 (taxa de Desfazer) só é mensurável se o Desfazer passar pelo servidor, o que depende da escolha ainda aberta no addendum.
+
+### Findings
+- **high** SM-2 e SM-C3 não são mensuráveis com o desenho atual (§8 SM-2, SM-C3; §4.6 FR-14; addendum "Janela de desfazer") — Sem telemetria não há como contar "freelancers ativos"; se a Janela de desfazer ficar no navegador, cancelamentos nunca chegam ao servidor. *Fix:* para cada SM, dizer onde o dado nasce e quem o lê; redefinir SM-2 com um denominador observável (por exemplo, freelancers do grupo de teste) ou aceitar telemetria mínima opt-in como decisão explícita.
+- **medium** SM-1 depende de um contador que não guarda histórico (§8 SM-1, §4.6 FR-14) — SM-1 pede "pelo menos 2 vezes por semana durante 3 semanas seguidas", mas FR-14 só "mostra esse número nas configurações" por semana, sem dizer se semanas anteriores ficam visíveis. O freelancer de teste teria de anotar o número toda semana. *Fix:* FR-14 guardar contagem por semana (últimas N semanas) e mostrar a série; responder a pergunta 4 de §9 antes de iniciar a Fase 0.
+
+## Clareza de pronto (done-ness): fina
+Muitos FRs têm consequências testáveis boas (FR-5 com três casos negativos, FR-7 com o exemplo dos três Cartões, FR-8 listando o que o Aviso não mostra). Mas há contradições e lacunas que vão travar histórias da Fase 1, e uma lacuna na Fase 0.
+
+A mais séria é o tempo. UJ-1 promete "Um minuto depois, o dono da padaria recebe um e-mail" e FR-6 mostra "sai em 60s", mas FR-7 junta movimentos "feitos dentro de 10 minutos" e NFR-1 conta os 2 minutos "depois do fim da Janela de desfazer e do Agrupamento". Se o Agrupamento espera 10 minutos por mais movimentos, todo Aviso atrasa pelo menos 10 minutos e o texto do toast mente; se não espera, não está definido como dois Avisos dentro de 10 minutos viram um só.
+
+### Findings
+- **critical** Janela de desfazer de 60s contradiz Agrupamento de 10 minutos (§2.3 UJ-1, §4.3 FR-6, FR-7, §5 NFR-1) — UJ-1 e o texto de FR-6 dizem que o e-mail sai em 60 segundos; FR-7 e NFR-1 implicam espera de até 10 minutos. Não dá para escrever o teste de aceitação de nenhum dos dois sem escolher. Também não está dito se Desfazer num Aviso agrupado cancela só aquele Cartão ou o Aviso inteiro. *Fix:* definir o Agrupamento como janela concreta (por exemplo, "o Aviso sai 10 minutos após o primeiro movimento" ou "após 10 minutos sem novo movimento do mesmo Cliente"), reescrever UJ-1 e o texto do toast para refletir o prazo real, e acrescentar a FR-6 a consequência "Desfazer remove apenas este Cartão do Aviso agrupado".
+- **high** Estado que só o servidor conhece aparece no navegador sem canal definido (§4.4 FR-10, FR-11; §5 NFR-5; addendum "Hipótese de transporte") — "enviado (com horário)", "falhou" com motivo, e "O cadastro do Cliente mostra que ele pediu para não receber Avisos" exigem que o navegador receba informação do servidor. O addendum só descreve o caminho navegador para servidor. NFR-5 ("isso remove o dado do serviço de envio") implica que o servidor guarda E-mail do cliente além do evento, o que também não está no addendum. *Fix:* acrescentar um FR (ou consequência em FR-10/FR-11) dizendo quando o navegador sincroniza o Registro de envio e o Descadastro (ao abrir o app, periodicamente, ao focar a aba) e o que mostra enquanto não sincronizou; levar à pergunta 1 de §9.
+- **high** Fluxo de ativação da Fase 0 indefinido (§7.1, §4.2 FR-4, §2.3 UJ-2) — A Fase 0 inclui FR-4 ("Ao ativar o Aviso ao cliente"), mas a única ativação descrita (UJ-2) passa pela Conta de envio (FR-12), que é da Fase 1. Na Fase 0 não se sabe onde fica o convite, o que "ativar" faz sem conta, nem se FR-13 aparece sem ativação. *Fix:* escrever a ativação da Fase 0 (convite, efeito, como desligar) e separar em UJ-2 o que é Fase 0 e o que é Fase 1.
+- **medium** Nome do Freelancer não existe no app (§4.3 FR-8, §2.3 UJ-1, §5 NFR-2) — FR-8 exige "o nome do Freelancer" e UJ-1 mostra "Rafaela moveu...", mas `AppState` não tem perfil do freelancer e a Conta de envio (FR-12) coleta só e-mail. *Fix:* FR-12 (e a Fase 0, para o `mailto:`) pedir o nome; ou definir que o Aviso usa o e-mail quando não há nome.
+- **medium** Padrão do FR-4 não é implementável para dados existentes (§4.2 FR-4 e sua `[ASSUMPTION]`; addendum "Estado atual do código") — As colunas padrão são criadas com `uuidv4()` e só o título indica "Review"/"Done"; quadros já salvos não registram a origem. A suposição "o padrão segue a coluna, não o nome" não tem como ser cumprida para quem já usa o app. *Fix:* decidir a regra para dados existentes (por exemplo, casar por título e ordem na migração, e só depois guardar a origem) e escrever a consequência testável.
+- **medium** "Sessão de uso" indefinida (§4.1 FR-2) — "não pergunta de novo para o mesmo Cliente na mesma sessão de uso" pode ser aba, dia ou até recarregar a página. *Fix:* definir (por exemplo, "até recarregar o app") e incluir no Glossário.
+- **low** Comportamento sem conexão para quem ativou não está coberto (§4.3, §5 NFR-3) — NFR-3 cobre só quem não ativou. Um movimento feito offline por quem tem Conta de envio fica pendente para sempre, sai depois, ou falha? *Fix:* uma consequência em FR-5 ou FR-10 para o caso offline.
+- **low** Desativar com Avisos pendentes (§4.5 FR-12) — "Desativar o Aviso ao cliente para todos os envios futuros" não diz o que acontece com Avisos já pendentes na janela. *Fix:* acrescentar a consequência.
+
+## Honestidade de escopo: adequada
+§6 e §7.3 fazem trabalho real: cada item fora do escopo tem motivo, e FR-8 tem "Fora do escopo" local. As `[ASSUMPTION]` estão indexadas em §10, incluindo as gerais (destinatário e base legal LGPD). A densidade de itens abertos (5 perguntas, 7 suposições, 1 nota) é razoável para uma funcionalidade em validação.
+
+O problema é que o PRD foi feito no caminho rápido, sem perguntas ao usuário (ver `.memlog.md`), e vários números inventados entraram como fato: 60 segundos, 10 minutos, "3 de 5 freelancers", "30% em 60 dias", "abaixo de 2%", "Acima de 5%", "Acima de 15%". O próprio memlog marca o critério de SM-1 como suposição, mas no PRD ele está sem tag.
+
+### Findings
+- **medium** Limiares numéricos sem `[ASSUMPTION]` (§3 Janela de desfazer e Agrupamento; §8 SM-1 a SM-C3) — Nenhum desses números foi confirmado pelo usuário, e o critério de passagem da Fase 0 para a Fase 1 depende de um deles. *Fix:* marcar cada limiar com `[ASSUMPTION]` e indexar em §10, ou confirmar com o usuário.
+- **medium** Obrigações LGPD do próprio FreelanceFlow não aparecem (§5 NFR-5, §10 "base legal LGPD") — O PRD trata a base legal do Freelancer (controlador), mas o FreelanceFlow passa a ser operador e a guardar e-mail do Freelancer e dos Clientes: falta aviso de privacidade, retenção dos eventos e exclusão da Conta de envio. *Fix:* acrescentar um NFR ou `[NON-GOAL for MVP]` explícito sobre política de privacidade, retenção e exclusão da conta.
+
+## Usabilidade a jusante: adequada
+O Glossário existe e é usado com maiúsculas consistentes (Cartão, Cliente, Coluna pública, Aviso). IDs contíguos e únicos (UJ-1 a UJ-4, FR-1 a FR-14, NFR-1 a NFR-5, SM-1 a SM-4 e SM-C1 a SM-C3), e cada seção de §4 diz qual UJ realiza. O addendum é preciso quanto ao código atual (`Client` com `id`, `name`, `hourlyRate`, `color`; `Column` com `id`, `title`, `order`; regra do `getDefaultState`), o que ajuda arquitetura e histórias. Os pontos fracos estão na deriva de termos listada em Notas mecânicas e no canal servidor-navegador já citado em Clareza de pronto.
+
+### Findings
+- **medium** "Aviso" com dois sentidos (§3, §4.2 FR-4, §4.5, §4.6 FR-13/FR-14) — O Glossário define Aviso como "e-mail enviado ao Cliente", mas "Aviso ao cliente" também é o nome da funcionalidade ("Ao ativar o Aviso ao cliente"), e na Fase 0 o e-mail é enviado pelo Freelancer, não pelo app, então FR-13/FR-14 usam "Avisar por e-mail" fora da definição. Histórias e métricas (SM-3 conta Avisos enviados) vão misturar os sentidos. *Fix:* separar no Glossário a funcionalidade (por exemplo, "Aviso ao cliente (recurso)"), o Aviso automático e o "Aviso manual" da Fase 0.
+
+## Adequação de forma (shape fit): forte
+É um produto de uso individual com um segundo público externo (o Cliente que recebe e-mail) e UX relevante (toast de desfazer, indicador de coluna, registro no cartão). Quatro jornadas curtas com protagonista nomeado são a dose certa, sem excesso de formalização. O detalhe técnico ficou no addendum, como deve ser num PRD enxuto. Sendo brownfield, as referências de código no addendum conferem com `src/types/index.ts` e `src/lib/storage.ts`. Sem findings.
+
+## Notas mecânicas
+- Termos usados sem entrada no Glossário: "movimento" e "evento de movimento" (FR-9, NFR-2, addendum), "sessão de uso" (FR-2), "Desfazer" (FR-6, SM-C3).
+- Variações de nome: "Conta de envio" (§3, FR-8), "conta mínima" (título de FR-12), "Conta" em §7.2. Unificar em "Conta de envio".
+- FR-9 fala em "dois navegadores", mas sem sincronização de estado (pergunta 1 de §9) cada navegador tem seu próprio quadro e IDs; o cenário testável real é reenvio do mesmo evento, que é o que a consequência descreve. Reescrever o enunciado para casar com a consequência.
+- Addendum, "Hipótese de transporte": o payload do evento lista "id do evento, id do cartão, título, coluna nova, cliente e e-mail", sem o nome e o e-mail do Freelancer exigidos por FR-8 e permitidos por NFR-2.
+- Roundtrip do Índice de suposições: as 5 suposições inline aparecem em §10 e vice-versa. A de FR-11 está inline como `[ASSUMPTION]` sem texto; escrever o conteúdo no próprio lugar.
+- Protagonistas: UJ-1, UJ-2 e UJ-4 com Rafaela; UJ-3 com Marcos, apresentado inline. OK.
+- §0 referencia `brainstorm-intent.md`, que existe no caminho indicado.
+- Título marcado como "Nome provisório, confirmar." (linha 9): resolver antes de passar para UX.
