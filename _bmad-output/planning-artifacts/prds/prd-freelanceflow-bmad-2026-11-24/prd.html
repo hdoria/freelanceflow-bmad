@@ -1,0 +1,299 @@
+<title>PRD Aviso ao Cliente</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: documento de leitura com índice lateral fixo no desktop; coluna única no celular */
+:root {
+  --bg: #f6f7f9; --surface: #ffffff; --fg: #1b2230; --muted: #5b6577; --line: #dde2ea;
+  --accent: #1f6f8b; --accent-soft: #e3f0f5;
+  --assume: #8a5a00; --assume-bg: #fff3d6; --note: #6a3fb5; --note-bg: #efe8fb;
+  --f-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #10141b; --surface: #171c25; --fg: #e5e9f0; --muted: #9aa4b5; --line: #2a3240;
+  --accent: #6cc3de; --accent-soft: #16303b; --assume: #f2c063; --assume-bg: #3a2c0e; --note: #c3a6f5; --note-bg: #2c2140; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #10141b; --surface: #171c25; --fg: #e5e9f0; --muted: #9aa4b5; --line: #2a3240;
+  --accent: #6cc3de; --accent-soft: #16303b; --assume: #f2c063; --assume-bg: #3a2c0e; --note: #c3a6f5; --note-bg: #2c2140; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--fg); font: 16px/1.65 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 64px }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 48px }
+header.doc { max-width: 1120px; margin: 0 auto; padding-block: 48px 32px; border-bottom: 1px solid var(--line); margin-bottom: 32px }
+.eyebrow { font: 500 12px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; gap: 12px; flex-wrap: wrap; align-items: center }
+.status { background: var(--accent-soft); color: var(--accent); padding: 4px 8px; border-radius: 4px }
+h1 { font: 700 clamp(32px, 5vw, 48px)/1.1 var(--f-display); margin: 16px 0 12px; text-wrap: balance; letter-spacing: -.01em }
+.lede { color: var(--muted); max-width: 62ch; margin: 0 }
+.stats { display: flex; flex-wrap: wrap; gap: 8px 28px; margin-top: 24px; font-variant-numeric: tabular-nums }
+.stats div { display: flex; align-items: baseline; gap: 8px }
+.stats b { font: 600 24px/1 var(--f-display) }
+.stats span { color: var(--muted); font-size: 14px }
+nav.toc { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 24px); align-self: start; font-size: 14px }
+nav.toc p { font: 500 11px/1 var(--f-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; border-left: 1px solid var(--line) }
+nav.toc a { display: block; padding: 4px 12px; color: var(--muted); text-decoration: none; margin-left: -1px; border-left: 2px solid transparent }
+nav.toc a:hover, nav.toc a:focus-visible { color: var(--fg); border-left-color: var(--accent); outline: none }
+main { min-width: 0; max-width: 74ch }
+main h2 { font: 600 26px/1.25 var(--f-display); margin: 56px 0 16px; padding-top: 8px; text-wrap: balance; scroll-margin-top: 24px }
+main h2:first-child { margin-top: 0 }
+main h3 { font: 600 19px/1.3 var(--f-display); margin: 36px 0 12px; color: var(--fg) }
+main h4.fr { font: 600 17px/1.35 var(--f-display); margin: 32px 0 8px; padding-top: 20px; border-top: 1px dashed var(--line); display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; scroll-margin-top: 24px }
+.fr-id { font: 500 12px/1 var(--f-mono); color: var(--accent); background: var(--accent-soft); padding: 5px 7px; border-radius: 4px }
+.idb { font-family: var(--f-mono); font-size: .86em; color: var(--accent) }
+main p, main li { max-width: 68ch }
+main ul, main ol { padding-left: 22px }
+main li { margin: 4px 0 }
+main li > ul { margin-top: 4px }
+main code { font: .88em var(--f-mono); background: var(--accent-soft); padding: 1px 5px; border-radius: 3px; overflow-wrap: anywhere }
+main a { color: var(--accent) }
+blockquote { margin: 16px 0; padding: 12px 16px; border-left: 3px solid var(--accent); background: var(--surface) }
+.tag { font: 600 11px/1 var(--f-body); letter-spacing: .04em; text-transform: uppercase; padding: 3px 6px; border-radius: 3px; margin: 0 4px; white-space: nowrap; vertical-align: 1px }
+.tag-assume { color: var(--assume); background: var(--assume-bg) }
+.tag-note { color: var(--note); background: var(--note-bg) }
+.assume-text { color: var(--assume); font-style: italic }
+.tag-note + .assume-text { color: var(--note) }
+.legend { margin-top: 20px; font-size: 14px; color: var(--muted) }
+footer { max-width: 1120px; margin: 64px auto 0; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px }
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 0 }
+  nav.toc { position: static; margin-bottom: 32px; padding: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 6px }
+  nav.toc ol { border-left: 0 }
+  nav.toc a { padding: 4px 0; border-left: 0 }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth } }
+</style>
+<header class="doc">
+  <div class="eyebrow"><span>FreelanceFlow · PRD</span><span class="status">final</span><span>atualizado 2026-11-24</span></div>
+  <h1>Aviso ao cliente por e-mail</h1>
+  <p class="lede">Quando um cartão entra numa coluna pública, o cliente do freelancer recebe um e-mail curto dizendo o que mudou. Fase 0 valida com o e-mail do próprio freelancer; Fase 1 envia automaticamente.</p>
+  <div class="stats">
+    <div><b>14</b><span>requisitos funcionais</span></div>
+    <div><b>5</b><span>não funcionais</span></div>
+    <div><b>4</b><span>jornadas</span></div>
+    <div><b>7</b><span>métricas</span></div>
+    <div><b>9</b><span>suposições a confirmar</span></div>
+  </div>
+  <p class="legend"><span class="tag tag-assume">Suposição</span> inferido sem confirmação do usuário &nbsp; <span class="tag tag-note">Nota do PM</span> lembrete para revisitar</p>
+</header>
+<div class="wrap">
+  <nav class="toc" aria-label="Índice"><p>Índice</p><ol><li><a href="#0-proposito-do-documento">0. Propósito do documento</a></li><li><a href="#1-visao">1. Visão</a></li><li><a href="#2-usuario-alvo">2. Usuário-alvo</a></li><li><a href="#3-glossario">3. Glossário</a></li><li><a href="#4-funcionalidades">4. Funcionalidades</a></li><li><a href="#5-requisitos-nao-funcionais">5. Requisitos não funcionais</a></li><li><a href="#6-decisao-de-produto-o-freelanceflow-passa-a-operar-um-servico">6. Decisão de produto: o FreelanceFlow passa a operar um serviço</a></li><li><a href="#61-fora-dos-objetivos">6.1 Fora dos objetivos</a></li><li><a href="#7-escopo">7. Escopo</a></li><li><a href="#8-metricas-de-sucesso">8. Métricas de sucesso</a></li><li><a href="#9-perguntas-em-aberto">9. Perguntas em aberto</a></li><li><a href="#10-indice-de-suposicoes">10. Índice de suposições</a></li></ol></nav>
+  <main><h2 id="0-proposito-do-documento">0. Propósito do documento</h2>
+<p>Este PRD orienta quem vai desenhar a experiência (UX), decidir a arquitetura e quebrar o trabalho em épicos e histórias para o FreelanceFlow. Ele parte do documento de intenção da sessão de brainstorming de 24/11/2026 (<code>_bmad-output/brainstorming/brainstorm-notificacao-email-movimento-tarefa-2026-11-24/brainstorm-intent.md</code>) e não repete o que está lá. Os termos do Glossário (§3) valem para o documento inteiro. As funcionalidades estão agrupadas em §4, com requisitos numerados de FR-1 em diante. Toda inferência sem confirmação do usuário está marcada como <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span> e listada em §10. Detalhe técnico (como enviar, onde guardar, qual provedor) está em <code>addendum.md</code>.</p>
+<h2 id="1-visao">1. Visão</h2>
+<p>Hoje o freelancer avisa o cliente sobre o andamento do trabalho por WhatsApp, e-mail solto ou chamada, sempre de memória. O kanban do FreelanceFlow já sabe quando uma tarefa ficou pronta para revisão ou foi concluída, mas essa informação fica presa no navegador do freelancer.</p>
+<p>O <strong>Aviso ao cliente</strong> faz o próprio quadro avisar: quando um cartão entra numa coluna que o freelancer marcou como pública, o cliente dele recebe um e-mail curto dizendo o que mudou. O freelancer não escreve nada, não esquece ninguém e pode desfazer um movimento errado antes de o e-mail sair.</p>
+<p>Esta é a primeira peça de um ciclo maior (revisão, aprovação pelo cliente, fatura) que a sessão de brainstorming identificou como o valor real. Este PRD entrega só o aviso, mas desenhado para que a aprovação e a fatura possam ser encaixadas depois sem refazer nada.</p>
+<h2 id="2-usuario-alvo">2. Usuário-alvo</h2>
+<h3 id="21-jobs-to-be-done">2.1 Jobs to be done</h3>
+<ul>
+<li><strong>Freelancer, funcional:</strong> manter o cliente informado sobre entregas sem gastar tempo escrevendo mensagens de status.</li>
+<li><strong>Freelancer, social:</strong> parecer organizado e profissional aos olhos do cliente.</li>
+<li><strong>Freelancer, emocional:</strong> parar de se preocupar com "esqueci de avisar o cliente que já está pronto?".</li>
+<li><strong>Cliente do freelancer, funcional:</strong> saber quando há algo para revisar ou que foi entregue, sem precisar perguntar.</li>
+</ul>
+<h3 id="22-nao-usuarios-v1">2.2 Não usuários (v1)</h3>
+<ul>
+<li>Equipes ou agências com vários freelancers no mesmo quadro: o FreelanceFlow é de uso individual.</li>
+<li>O cliente como usuário do app: ele só recebe e-mails, não entra no FreelanceFlow.</li>
+</ul>
+<h3 id="23-jornadas-principais">2.3 Jornadas principais</h3>
+<ul>
+<li>
+<p><strong><span class="idb">UJ-1</span>. Rafaela avisa o cliente sem escrever uma linha.</strong>
+  Rafaela é designer, atende 4 clientes e usa o FreelanceFlow no notebook. Ela termina o layout da página inicial do cliente Padaria Sol e arrasta o cartão para "Review". Aparece no canto: "Aviso para Padaria Sol sai em 2 min. Desfazer". Ela não faz nada. Uns dois minutos depois, o dono da padaria recebe um e-mail: "Rafaela moveu 'Layout da página inicial' para Review". No cartão, Rafaela vê "Aviso enviado às 14:02". Se nesse meio-tempo ela tivesse movido outro cartão da Padaria Sol, os dois iriam no mesmo e-mail. <strong>Caso de borda:</strong> se ela tivesse arrastado para a coluna errada, clicaria em "Desfazer" e nenhum e-mail sairia.</p>
+</li>
+<li>
+<p><strong><span class="idb">UJ-2</span>. Rafaela ativa o aviso pela primeira vez.</strong>
+  Na Fase 1, Rafaela vê o convite "Avisar seus clientes por e-mail quando um cartão chega em Review ou Done?" e clica em ativar. Como o envio automático precisa saber quem ela é, o app pede o nome e o e-mail dela e manda um link de acesso. Ela confirma pelo link. As colunas "Review" e "Done" ficam marcadas como públicas. Na próxima vez que mover um cartão de um cliente sem e-mail cadastrado, o app pede o e-mail do cliente ali mesmo, com a opção de pular.</p>
+</li>
+<li>
+<p><strong><span class="idb">UJ-3</span>. Cliente pede para não receber mais.</strong>
+  O cliente Marcos acha que recebe e-mails demais. No rodapé do aviso ele clica em "Não quero mais receber avisos de Rafaela". A partir daí nenhum aviso sai para ele, e no cadastro do cliente Rafaela vê "Marcos pediu para não receber avisos".</p>
+</li>
+<li>
+<p><strong><span class="idb">UJ-4</span>. Rafaela testa a ideia antes do envio automático existir (Fase 0).</strong>
+  Na Fase 0 não há envio automático nem conta. Rafaela liga "Avisar clientes por e-mail" nas configurações e confirma as colunas sugeridas. Quando ela arrasta o cartão para "Review", aparece "Avisar Padaria Sol por e-mail?". Ela clica e o programa de e-mail dela abre com destinatário, assunto e texto já preenchidos. Ela revisa e envia ela mesma.</p>
+</li>
+</ul>
+<h2 id="3-glossario">3. Glossário</h2>
+<ul>
+<li><strong>Freelancer:</strong> quem usa o FreelanceFlow e é dono do quadro.</li>
+<li><strong>Cliente:</strong> cadastro de cliente do freelancer no app (entidade <code>Client</code>). Um cartão tem zero ou um Cliente.</li>
+<li><strong>E-mail do cliente:</strong> endereço de e-mail opcional guardado no Cliente.</li>
+<li><strong>Cartão:</strong> uma tarefa no quadro (entidade <code>Task</code>).</li>
+<li><strong>Coluna pública:</strong> coluna que o freelancer marcou para gerar Aviso quando um Cartão entra nela. Toda coluna é pública ou não pública.</li>
+<li><strong>Aviso:</strong> e-mail enviado ao Cliente informando que um ou mais Cartões dele entraram numa Coluna pública.</li>
+<li><strong>Janela de espera:</strong> tempo entre o último movimento de Cartões de um Cliente e o envio do Aviso: 2 minutos, reiniciados a cada novo movimento do mesmo Cliente, com teto de 10 minutos desde o primeiro. Durante a janela, o Freelancer pode desfazer qualquer Cartão. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span><span class="assume-text">valores de 2 e 10 minutos definidos no caminho rápido, sem dado de uso.</span></li>
+<li><strong>Agrupamento:</strong> todos os Cartões do mesmo Cliente que estão na Janela de espera saem num único Aviso.</li>
+<li><strong>Registro de envio:</strong> estado do Aviso visível no Cartão: pendente, enviado, cancelado ou falhou.</li>
+<li><strong>Descadastro:</strong> pedido do Cliente para não receber mais Avisos daquele Freelancer.</li>
+<li><strong>Conta de envio:</strong> identificação mínima do Freelancer (e-mail confirmado por link) exigida apenas para o envio automático.</li>
+</ul>
+<h2 id="4-funcionalidades">4. Funcionalidades</h2>
+<h3 id="41-e-mail-do-cliente">4.1 E-mail do cliente</h3>
+<p><strong>Descrição:</strong> o Cliente ganha um campo opcional de e-mail. O Freelancer preenche no cadastro do Cliente ou no momento em que um Aviso precisaria dele. Realiza UJ-2.</p>
+<h4 class="fr" id="fr-1"><span class="fr-id">FR-1</span>Cadastrar e-mail do cliente</h4>
+<p>O Freelancer pode informar, editar e apagar o E-mail do cliente no cadastro do Cliente.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Endereço sem formato válido de e-mail não é salvo e mostra mensagem de erro.
+- Clientes já existentes continuam funcionando sem e-mail (o campo nasce vazio).</p>
+<h4 class="fr" id="fr-2"><span class="fr-id">FR-2</span>Pedir o e-mail no momento certo</h4>
+<p>Quando um Cartão de um Cliente sem e-mail entra numa Coluna pública, o app pede o E-mail do cliente ali mesmo, com opção de pular. Realiza UJ-2.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Se o Freelancer informar o e-mail, ele é salvo no Cliente e o Aviso segue o fluxo normal.
+- Se pular, nenhum Aviso é gerado para aquele movimento e o app não pergunta de novo para o mesmo Cliente na mesma sessão de uso.</p>
+<h3 id="42-colunas-publicas">4.2 Colunas públicas</h3>
+<p><strong>Descrição:</strong> o Freelancer escolhe quais colunas geram Aviso. Existe um padrão pronto para quem não quer configurar nada. Realiza UJ-2.</p>
+<h4 class="fr" id="fr-3"><span class="fr-id">FR-3</span>Marcar coluna como pública</h4>
+<p>O Freelancer pode marcar e desmarcar qualquer coluna como Coluna pública.</p>
+<p><strong>Consequências (testáveis):</strong>
+- A marcação sobrevive a renomear a coluna.
+- Coluna excluída e recriada nasce não pública.
+- Colunas públicas têm um indicador visual no quadro.</p>
+<h4 class="fr" id="fr-4"><span class="fr-id">FR-4</span>Ativação com um clique</h4>
+<p>O Freelancer ativa o Aviso ao cliente nas configurações. Na ativação, o app sugere como públicas as colunas chamadas "Review" ou "Done" (ou "Em revisão" ou "Concluído") e pede confirmação. Vale nas duas fases: na Fase 0 a ativação não exige conta; na Fase 1 o envio automático exige também o FR-12.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Nenhuma coluna vira pública sem o Freelancer confirmar.
+- Se nenhuma coluna tiver esses nomes, o app pede para escolher.
+- Depois da ativação, o Freelancer pode mudar as colunas públicas a qualquer momento (FR-3).</p>
+<h3 id="43-envio-do-aviso">4.3 Envio do aviso</h3>
+<p><strong>Descrição:</strong> quando um Cartão com Cliente entra numa Coluna pública, nasce um Aviso pendente. Ele espera a Janela de espera, junta os outros Cartões do mesmo Cliente movidos nesse tempo e então é enviado. Realiza UJ-1.</p>
+<h4 class="fr" id="fr-5"><span class="fr-id">FR-5</span>Gerar aviso</h4>
+<p>Um Cartão que entra numa Coluna pública gera um Aviso pendente quando tem Cliente, o Cliente tem E-mail e o Cliente não fez Descadastro.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Mover um Cartão entre duas colunas não públicas não gera Aviso.
+- Reordenar Cartões dentro da mesma coluna não gera Aviso.
+- Cartão sem Cliente não gera Aviso.</p>
+<h4 class="fr" id="fr-6"><span class="fr-id">FR-6</span>Desfazer</h4>
+<p>Depois de cada movimento que gera Aviso, o Freelancer vê "Aviso para {Cliente} sai em 2 min. Desfazer". Desfazer retira só aquele Cartão do Aviso. Realiza UJ-1.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Desfazer o único Cartão de um Aviso cancela o Aviso, e o Registro de envio do Cartão mostra "cancelado".
+- Desfazer um Cartão de um Aviso com três Cartões deixa os outros dois no Aviso.
+- Mover o Cartão de volta para uma coluna não pública dentro da Janela de espera tem o mesmo efeito de Desfazer.
+- Fechar a aba durante a Janela de espera não cancela nem impede o Aviso.</p>
+<h4 class="fr" id="fr-7"><span class="fr-id">FR-7</span>Agrupamento</h4>
+<p>Cartões do mesmo Cliente movidos para Colunas públicas durante a Janela de espera saem num único Aviso, com o estado final de cada Cartão.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Três Cartões do mesmo Cliente movidos para "Review" com 1 minuto de intervalo geram um e-mail com os três, cerca de 2 minutos depois do último movimento.
+- Movimentos contínuos não seguram o Aviso por mais de 10 minutos desde o primeiro.
+- Um Cartão que entrou e saiu de Coluna pública dentro da janela não aparece no Aviso.</p>
+<h4 class="fr" id="fr-8"><span class="fr-id">FR-8</span>Conteúdo do aviso</h4>
+<p>O Aviso traz o nome do Freelancer (informado no FR-12), o título de cada Cartão e a coluna para onde ele foi. A resposta ao e-mail vai para o e-mail do Freelancer. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span><span class="assume-text">o Aviso sai no idioma do app do Freelancer, pt ou en.</span></p>
+<p><strong>Consequências (testáveis):</strong>
+- O Aviso não mostra horas, valores, descrição do Cartão nem colunas não públicas.
+- O campo de resposta do e-mail é o e-mail da Conta de envio do Freelancer.</p>
+<p><strong>Fora do escopo:</strong>
+- Botões de aprovar ou pedir ajuste (Fase 2).
+- Texto editável pelo Freelancer.</p>
+<h4 class="fr" id="fr-9"><span class="fr-id">FR-9</span>Sem aviso duplicado</h4>
+<p>Um mesmo movimento nunca gera dois Avisos, mesmo que o Freelancer use o app em dois navegadores.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Reenviar o mesmo evento de movimento ao serviço de envio não gera segundo e-mail.</p>
+<h3 id="44-registro-de-envio-e-descadastro">4.4 Registro de envio e descadastro</h3>
+<p><strong>Descrição:</strong> o Freelancer sabe o que aconteceu com cada Aviso, e o Cliente pode parar de receber. Realiza UJ-1 e UJ-3.</p>
+<h4 class="fr" id="fr-10"><span class="fr-id">FR-10</span>Registro de envio no cartão</h4>
+<p>Cada Cartão mostra o Registro de envio do último Aviso: pendente, enviado (com horário), cancelado ou falhou.</p>
+<p>O estado "pendente" é conhecido pelo navegador; "enviado", "falhou" e o Descadastro são conhecidos só pelo serviço de envio, então o app busca esses estados no serviço.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Um Aviso que falhou mostra o motivo em linguagem simples (por exemplo, "e-mail do cliente inválido").
+- Ao abrir o app, e a cada 5 minutos com o app aberto, o Registro de envio e o status de Descadastro dos Clientes são atualizados a partir do serviço. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span>
+- Sem internet, o Registro de envio mostra o último estado conhecido e a hora da última atualização.</p>
+<h4 class="fr" id="fr-11"><span class="fr-id">FR-11</span>Descadastro em um clique</h4>
+<p>Todo Aviso tem no rodapé um link para o Cliente parar de receber Avisos daquele Freelancer, sem login. Realiza UJ-3.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Depois do Descadastro, nenhum Aviso sai para aquele Cliente.
+- O cadastro do Cliente mostra que ele pediu para não receber Avisos.
+- O Freelancer não consegue reativar o envio sozinho; só um novo consentimento do Cliente reativa. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span></p>
+<h3 id="45-conta-de-envio">4.5 Conta de envio</h3>
+<p><strong>Descrição:</strong> o envio automático acontece fora do navegador, então o serviço precisa saber de quem é cada Aviso. Quem não ativa o Aviso ao cliente continua usando o FreelanceFlow sem conta, como hoje. Realiza UJ-2.</p>
+<h4 class="fr" id="fr-12"><span class="fr-id">FR-12</span>Ativar com conta mínima</h4>
+<p>Para ativar o envio automático, o Freelancer informa o próprio nome e e-mail e confirma por um link de acesso. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span><span class="assume-text">login só por link no e-mail, sem senha.</span></p>
+<p><strong>Consequências (testáveis):</strong>
+- Sem confirmar o link, nenhum Aviso automático é enviado.
+- Desativar o Aviso ao cliente para todos os envios futuros e não afeta o resto do app.</p>
+<h3 id="46-fase-0-aviso-pelo-e-mail-do-proprio-freelancer">4.6 Fase 0: aviso pelo e-mail do próprio freelancer</h3>
+<p><strong>Descrição:</strong> antes do envio automático, uma versão sem servidor valida se freelancers realmente querem avisar clientes. Realiza UJ-4.</p>
+<h4 class="fr" id="fr-13"><span class="fr-id">FR-13</span>Abrir e-mail já preenchido</h4>
+<p>Quando um Cartão com Cliente que tem E-mail entra numa Coluna pública, o app oferece "Avisar {Cliente} por e-mail". Ao clicar, abre o programa de e-mail do Freelancer com destinatário, assunto e texto preenchidos.</p>
+<p><strong>Consequências (testáveis):</strong>
+- Nenhum dado sai do navegador por conta do app.
+- Se o Freelancer ignorar a oferta, nada acontece.</p>
+<h4 class="fr" id="fr-14"><span class="fr-id">FR-14</span>Contar uso localmente</h4>
+<p>O app conta, no próprio navegador, quantas vezes o Freelancer usou "Avisar por e-mail" por semana e mostra esse número nas configurações. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span><span class="assume-text">sem telemetria; a medição da Fase 0 depende de o Freelancer de teste compartilhar o número.</span></p>
+<h2 id="5-requisitos-nao-funcionais">5. Requisitos não funcionais</h2>
+<ul>
+<li><strong><span class="idb">NFR-1</span>, prazo de entrega:</strong> o Aviso é entregue ao provedor de e-mail em até 2 minutos depois do fim da Janela de espera.</li>
+<li><strong><span class="idb">NFR-2</span>, dados mínimos:</strong> só saem do navegador o título do Cartão, o nome da coluna, o nome e o E-mail do cliente, o nome e o e-mail do Freelancer e o identificador do movimento. Horas, valores e descrições nunca saem. O serviço guarda o E-mail do cliente e o status de Descadastro enquanto o Freelancer tiver o Aviso ativo.</li>
+<li><strong><span class="idb">NFR-3</span>, app sem conta continua igual:</strong> quem não ativa o Aviso ao cliente não percebe mudança de desempenho nem precisa de internet para usar o quadro.</li>
+<li><strong><span class="idb">NFR-4</span>, entregabilidade:</strong> Avisos saem de domínio com autenticação de e-mail configurada para reduzir a chance de cair em spam.</li>
+<li><strong><span class="idb">NFR-5</span>, privacidade (LGPD):</strong> o E-mail do cliente é usado só para Avisos; Descadastro é respeitado em até 1 minuto; o Freelancer pode apagar o e-mail do Cliente a qualquer momento, e isso remove o dado do serviço de envio.</li>
+</ul>
+<h2 id="6-decisao-de-produto-o-freelanceflow-passa-a-operar-um-servico">6. Decisão de produto: o FreelanceFlow passa a operar um serviço</h2>
+<p>Até hoje o FreelanceFlow roda inteiro no navegador, sem conta, sem servidor e sem custo de operação. A Fase 1 muda isso para quem ativar o envio automático: passa a existir conta, servidor, custo por e-mail e dado de terceiros (o E-mail do cliente) guardado fora do navegador.</p>
+<ul>
+<li><strong>Decisão:</strong> o dono do produto opera o serviço e paga o custo durante a validação com o grupo de teste. Preço ou limite de plano gratuito se decide antes de abrir a Fase 1 para além desse grupo. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span><span class="assume-text">assumido no caminho rápido; confirmar com o dono do produto.</span></li>
+<li><strong>Papéis na LGPD:</strong> o Freelancer é o controlador do E-mail do cliente; o FreelanceFlow atua como operador, usando o dado só para enviar Avisos.</li>
+<li><strong>O que não muda:</strong> quem não ativa o envio automático continua sem conta e com tudo no navegador (NFR-3).</li>
+</ul>
+<h2 id="61-fora-dos-objetivos">6.1 Fora dos objetivos</h2>
+<ul>
+<li>O FreelanceFlow não vira ferramenta de e-mail marketing nem de comunicação geral com clientes.</li>
+<li>O cliente não ganha acesso ao app nem a uma página de status nesta versão.</li>
+<li>Nada de cobrança, fatura ou aprovação pelo e-mail nesta versão.</li>
+<li>Nada de WhatsApp ou outros canais.</li>
+</ul>
+<h2 id="7-escopo">7. Escopo</h2>
+<h3 id="71-fase-0-validacao-sem-servidor">7.1 Fase 0 (validação, sem servidor)</h3>
+<ul>
+<li>FR-1, FR-2, FR-3, FR-4, FR-13, FR-14.</li>
+</ul>
+<h3 id="72-fase-1-mvp-com-envio-automatico">7.2 Fase 1 (MVP com envio automático)</h3>
+<ul>
+<li>Tudo da Fase 0, mais FR-5 a FR-12. FR-13 deixa de aparecer para quem ativou a Conta de envio.</li>
+</ul>
+<h3 id="73-fora-do-mvp">7.3 Fora do MVP</h3>
+<ul>
+<li><strong>Aprovar ou pedir ajuste pelo e-mail, com o cartão voltando sozinho:</strong> é o próximo PRD (Fase 2).</li>
+<li><strong>Fatura em rascunho na aprovação e contador de rodadas de ajuste:</strong> dependem da aprovação.</li>
+<li><strong>Resumo diário e semanal para o Freelancer:</strong> valor alto, mas é outro destinatário; avaliar depois da Fase 1. <span class="tag tag-note">Nota do PM</span><span class="assume-text">foi uma das ideias que mais animou o usuário no brainstorming; revisitar logo após a Fase 1.</span></li>
+<li><strong>Página de status do projeto e entidade "projeto":</strong> pedem um conceito novo no app.</li>
+<li><strong>Regra por cliente (cliente A recebe tudo, cliente B só entregas):</strong> a Coluna pública resolve o caso comum.</li>
+<li><strong>Texto do Aviso editável, anexos, Pix, WhatsApp.</strong></li>
+</ul>
+<h2 id="8-metricas-de-sucesso">8. Métricas de sucesso</h2>
+<p><strong>Primária</strong>
+- <strong class="idb">SM-1</strong>: freelancers que usam "Avisar por e-mail" pelo menos 2 vezes por semana durante 3 semanas seguidas na Fase 0. Meta: 3 de 5 freelancers de teste. É o critério para começar a Fase 1. Valida FR-13.
+- <strong class="idb">SM-2</strong>: entre os freelancers convidados para a Fase 1 (o grupo de teste, contado à mão), a parcela que confirma a Conta de envio e envia pelo menos um Aviso. Meta: 60% em 30 dias. <span class="tag tag-assume" title="Suposição a confirmar">Suposição</span> Valida FR-4, FR-12.</p>
+<p><strong>Secundária</strong>
+- <strong class="idb">SM-3</strong>: Avisos enviados por semana por freelancer que ativou. Indica uso recorrente. Valida FR-5 a FR-8.
+- <strong class="idb">SM-4</strong>: parcela de Avisos que falham. Meta: abaixo de 2%. Valida FR-10, NFR-4.</p>
+<p><strong>Contramétricas (não otimizar)</strong>
+- <strong class="idb">SM-C1</strong>: volume total de e-mails enviados. Mais e-mail não é melhor; o Agrupamento existe para reduzir. Contrabalança SM-3.
+- <strong class="idb">SM-C2</strong>: taxa de Descadastro. Acima de 5% dos Clientes indica que o Aviso virou ruído. Contrabalança SM-2 e SM-3.
+- <strong class="idb">SM-C3</strong>: taxa de Desfazer, medida no serviço de envio (Cartões retirados de Avisos sobre o total de Cartões que geraram Aviso). Acima de 15% indica que o gatilho está disparando em movimentos que não deveriam avisar. Contrabalança SM-3.</p>
+<h2 id="9-perguntas-em-aberto">9. Perguntas em aberto</h2>
+<ol>
+<li>Como o app passa a ter um serviço de envio sem perder a simplicidade de guardar tudo no navegador? Só os eventos de movimento vão ao servidor, ou o estado inteiro é sincronizado? Como o app recebe de volta o Registro de envio e o Descadastro (FR-10, FR-11)? (Arquitetura; bloqueia a Fase 1, não a Fase 0.)</li>
+<li>Qual provedor de e-mail transacional e de qual domínio os Avisos saem?</li>
+<li>Qual o limite de Avisos no plano gratuito, se houver plano pago?</li>
+<li>Quem são os 5 freelancers de teste da Fase 0 e como coletamos o número de SM-1?</li>
+<li>O cliente deveria escolher o idioma do Aviso, em vez de herdar o do Freelancer?</li>
+</ol>
+<h2 id="10-indice-de-suposicoes">10. Índice de suposições</h2>
+<ul>
+<li>§4.2 FR-4: padrão de Colunas públicas segue as colunas que nasceram como "Review" e "Done", mesmo renomeadas.</li>
+<li>§4.3 FR-8: Aviso sai no idioma do app do Freelancer.</li>
+<li>§4.4 FR-11: Freelancer não reativa envio para Cliente que fez Descadastro.</li>
+<li>§4.5 FR-12: Conta de envio usa login por link no e-mail, sem senha.</li>
+<li>§4.6 FR-14: Fase 0 não tem telemetria; medição depende do Freelancer de teste.</li>
+<li>Geral: o destinatário do Aviso é o Cliente, não o próprio Freelancer (o pedido original dizia "ele").</li>
+<li>§3: Janela de espera de 2 minutos com teto de 10 minutos.</li>
+<li>§4.4 FR-10: atualização do Registro de envio ao abrir o app e a cada 5 minutos.</li>
+<li>§6: o dono do produto opera e paga o serviço durante a validação.</li>
+<li>§8: metas numéricas de SM-1 a SM-C3 foram definidas no caminho rápido, sem dado de uso.</li>
+<li>Geral: base legal LGPD é o legítimo interesse do Freelancer em informar o próprio Cliente, com Descadastro em um clique.</li>
+</ul></main>
+</div>
+<footer>Fonte: <code>_bmad-output/planning-artifacts/prds/prd-freelanceflow-bmad-2026-11-24/prd.md</code>. Detalhe técnico em <code>addendum.md</code> na mesma pasta.</footer>
